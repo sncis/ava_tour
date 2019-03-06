@@ -1,11 +1,12 @@
 import React, { Component } from 'react';
-import { View, Text, Image, StyleSheet } from 'react-native';
+import { View, Text, Image, StyleSheet, Button } from 'react-native';
 
 export default class TourPreviewListItem extends Component {
 
   render() {
     return(
-      <View style={styles.viewContainer}>
+      <View style={styles.viewContainer}>   
+      <Button title="tours" onPress={this.props.nextProp} />
         <Image source={require("../assets/images/robot-dev.png")}></Image>
         <View style={styles.textContainer}>
           <Text style={styles.tourHeadline}>{this.props.headline}</Text>

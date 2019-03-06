@@ -1,28 +1,26 @@
 import React, { Component }from 'react';
 import { StyleSheet , View, Button, Text } from 'react-native';
 
-const WelcomeComponent = () => (
-  <View>
-    <Text style={styles.welcomeText}>Welcome
-    </Text>
-    <Button 
-      style={styles.startButton}
-      onPress={() =>{}}
-      title="lets start"
-      />
-
-  </View>
-);
-
-export default WelcomeComponent;
+export default class WelcomeComponent extends Component {
+  render(){
+    return(
+      <View>
+        <Text style={styles.welcomeText}>Welcome</Text>
+        <Button title="lets Start" onPress={this.props.goToTourOptions} />
+    </View>
+    )
+  }
+}
 
 const styles = StyleSheet.create({
   welcomeText:{
+    
     color: "black",
     fontWeight: "500",
     fontSize: 12,
   },
   startButton:{
+    marginTop: 100,
     color: "blue",
 
   },
