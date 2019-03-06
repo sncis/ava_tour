@@ -1,5 +1,5 @@
 import React from 'react';
-import { View, Text } from 'react-native';
+import { View, Text, Button } from 'react-native';
 
 
 export default class TourDetailsItem extends React.Component {
@@ -8,6 +8,7 @@ export default class TourDetailsItem extends React.Component {
     return(
       <View>
         <Text>"tour Details should be here"</Text>
+        <Button title='go to tour Navigation' onPress={this.props.goToTourNavigation} />
       </View>
     )
   }

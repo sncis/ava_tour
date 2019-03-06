@@ -4,7 +4,7 @@ import TourDetailsItem from '../components/tourDetailsItem';
 export default class TourDetailsScreen extends Component{
   render(){
     return(
-      <TourDetailsItem />
+      <TourDetailsItem goToTourNavigation={()=>this.props.navigation.navigate('TourNavigation')}/>
     )
   }
 }
