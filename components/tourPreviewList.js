@@ -3,9 +3,9 @@ import uuidv1 from "uuid";
 import { tours } from '../data';
 import TourPreviewListItem from './tourPreviewListItem';
 
-const TourPreviewList = () => (
+const TourPreviewList = (props) => (
       tours.map(item => (
-      <TourPreviewListItem nextProp={this.props.testProp} headline={item.headline} duration={item.duration} price={item.price} rating={item.rating} key={uuidv1()} />    
+      <TourPreviewListItem navigateToTourDetails={props.goToTourDetails} headline={item.headline} duration={item.duration} price={item.price} rating={item.rating} key={uuidv1()} />    
   )) 
 )
 

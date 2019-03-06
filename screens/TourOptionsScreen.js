@@ -7,7 +7,7 @@ export default class TourOptionsScreen extends Component {
     return(
       <View>
         {/* <TourPreviewList tours={() => this.props.navigation.navigate("TourDetails")}/> */}
-        <TourPreviewList testProp={() => this.props.navigation.navigate("TourDetails")}/>
+        <TourPreviewList goToTourDetails={() => this.props.navigation.navigate("TourDetails")}/>
         {/* <Button title="tourOptions" onPress={() => this.props.navigation.navigate("TourDetails")} /> */}
       </View>
       
