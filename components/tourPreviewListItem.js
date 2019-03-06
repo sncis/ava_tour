@@ -1,11 +1,11 @@
 import React, { Component } from 'react';
-import { View, Text, Image, StyleSheet } from 'react-native';
+import { View, Text, Image, StyleSheet, Button } from 'react-native';
 
 export default class TourPreviewListItem extends Component {
 
   render() {
     return(
-      <View style={styles.viewContainer}>
+      <View style={styles.viewContainer}>   
         <Image source={require("../assets/images/robot-dev.png")}></Image>
         <View style={styles.textContainer}>
           <Text style={styles.tourHeadline}>{this.props.headline}</Text>
@@ -15,6 +15,8 @@ export default class TourPreviewListItem extends Component {
             <Text style={styles.rating}>{this.props.rating}</Text>
           </View>
         </View>
+        <Button title="tours" onPress={this.props.navigateToTourDetails} />
+
       </View>
     );
   };
