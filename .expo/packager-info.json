@@ -1,9 +1,9 @@
 {
   "devToolsPort": 19002,
-  "expoServerPort": 19000,
-  "packagerPort": 19001,
-  "packagerPid": 14226,
-  "expoServerNgrokUrl": "https://k9-acw.anonymous.ava-tour.exp.direct",
-  "packagerNgrokUrl": "https://packager.k9-acw.anonymous.ava-tour.exp.direct",
-  "ngrokPid": 14247
+  "expoServerPort": null,
+  "packagerPort": null,
+  "packagerPid": null,
+  "expoServerNgrokUrl": null,
+  "packagerNgrokUrl": null,
+  "ngrokPid": null
 }
