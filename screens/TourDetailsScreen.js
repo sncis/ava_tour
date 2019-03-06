@@ -1,10 +1,11 @@
 import React, { Component } from 'react';
-import TourDetailsItem from '../components/tourDetailsItem';
+import TourDetailsList from '../components/TourDetailsList';
+import TourDetail from '../components/TourDetail';
 
 export default class TourDetailsScreen extends Component{
   render(){
     return(
-      <TourDetailsItem goToTourNavigation={()=>this.props.navigation.navigate('TourNavigation')}/>
+      <TourDetail  goToTourNavigation={()=>this.props.navigation.navigate('TourNavigation')}/>
     )
   }
 }

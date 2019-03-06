@@ -1,7 +1,7 @@
 import React from 'react';
 import uuidv1 from "uuid";
 import { tours } from '../data';
-import TourPreviewListItem from './tourPreviewListItem';
+import TourPreviewListItem from './TourPreviewListItem';
 
 const TourPreviewList = (props) => (
       tours.map(item => (
