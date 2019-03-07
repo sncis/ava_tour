@@ -1,5 +1,5 @@
 import React, { Component }from 'react';
-import { StyleSheet , View, Button, Text } from 'react-native';
+import { StyleSheet , View, Button, Text, Image } from 'react-native';
 
 export default class WelcomeComponent extends Component {
   render(){
@@ -17,11 +17,16 @@ const styles = StyleSheet.create({
     
     color: "black",
     fontWeight: "500",
-    fontSize: 12,
+    fontSize: 36,
+    textAlign: 'center',
   },
   startButton:{
     marginTop: 100,
     color: "blue",
-
   },
+  avaLogo:{
+    resizeMode: 'stretch'
+    
+  },
+  
 });
