@@ -33,6 +33,7 @@ export const tours = [
 
 export const tour1 = [
   {
+    headline: 'Nature, Biergarden & Sigthseeing',
     time: '1 pm',
     location: 'BMW Welt',
     recommendetTime: '2 hours',
@@ -61,7 +62,7 @@ export const tour1 = [
     location: 'Kloster Andach',
     recommendetTime: '2 hours',
     description: 'BMW WElt takes you on an exciting ride of histoy of BMW',
-    nextDestination: 'Drive to Schleißheim',
+    nextDestination: 'Drive to home',
     travelTimeToNextDestination: '1 hour'
   },
 ];
