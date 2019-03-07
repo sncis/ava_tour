@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { View, Text, StyleSheet } from 'react-native';
 import { MapView } from 'expo';
-import MapViewDirections from 'react-native-maps-directions';
+// import MapViewDirections from 'react-native-maps-directions';
 import { GOOGLE_MAPS_API_KEY } from '../constants/ApiKeys';
 
 const region ={
@@ -43,12 +43,12 @@ export default class TourNavigationScreen extends Component {
             ]}
             strokeColor="red"
             strokeWeight={6}/ >
-            <MapViewDirections
+            {/* <MapViewDirections
               origin={{latitude:48.137393, longitude:11.575448}}
               destination={{latitude:48.1772, longitude:11.5563}}
               apiKey={GOOGLE_MAPS_API_KEY}
               strokeColor="red"
-              strokeWeight={6}/ >
+              strokeWeight={6}/ > */}
 
           </MapView> 
             
