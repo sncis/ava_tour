@@ -1,0 +1,5 @@
+#!/bin/sh
+rm -rf /tmp/metro-cache/
+rm -Rf ./node_modules
+npm install
+npm audit fix
