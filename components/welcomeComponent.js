@@ -6,6 +6,7 @@ export default class WelcomeComponent extends Component {
     return(
       <View>
         <Text style={styles.welcomeText}>Welcome</Text>
+        <Text> test changes</Text>
         <Button title="lets Start" onPress={this.props.goToTourOptions} />
     </View>
     )
