@@ -4,7 +4,8 @@ import TourDetail from '../components/TourDetail';
 export default class TourDetailsScreen extends Component{
   render(){
     return(
-      <TourDetail goToTourNavigation={()=>this.props.navigation.navigate('TourNavigation')}/>
+      <TourDetail goToLocationDetails={() => this.props.navigation.navigate('LocationDetails')} 
+        goToTourNavigation={()=>this.props.navigation.navigate('TourNavigation')}/>
     )
   }
 }

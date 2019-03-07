@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import {ScrollView, View, Button, StyleSheet, Text, Image, TouchableOpacity, Dimensions} from 'react-native';
 import TourDetailsList from './TourDetailsList';
 import {tour1} from '../data';
+import PreviewHeaderImageComponent from './PreviewHeaderImageComponent';
 
 
 export default class TourDetail extends Component {
@@ -9,14 +10,15 @@ export default class TourDetail extends Component {
     return(
       <View>
         <ScrollView style={styles.scrollContainer}> 
-          <View style={styles.headerContainer}>
-            <Text style={styles.headline}>{tour1[0].headline}</Text>
-            <View style={styles.imageContainer}>
-            <Image style={styles.tourHeaderImage} source={require("../assets/images/munich.jpg")} />
-            </View>
+         <PreviewHeaderImageComponent />
+          <View style={styles.timeLocationContainer}>
+            <Text style={styles.time}>Time</Text>
+            <Text styles={styles.location}>Location</Text>
           </View>
-          <TourDetailsList />
+          
+          <TourDetailsList goToLocation={this.props.goToLocationDetails}/>
         </ScrollView>
+
         <TouchableOpacity style={styles.bookingButton} title="Book tour" onPress={this.props.goToTourNavigation}>
           <Text style={styles.buttonText}>BOOK TOUR</Text>
         </TouchableOpacity>
@@ -29,28 +31,18 @@ const styles= StyleSheet.create({
   scrollContainer: {
     padding:15,
   },
-  headerContainer: {
-    marginBottom:20,
+ 
+  timeLocationContainer: {
+    flexDirection: 'row',
+    justifyContent: "center",
+    marginTop:20,
   },
-  headline: {
-    fontSize: 16,
-    fontWeight: '500',
-    color: 'black',
-    marginBottom: 10,
-    marginLeft:5,
+  time: {
+    flex: 1,
+
   },
-  imageContainer: {
-    shadowColor: 'grey',
-    shadowOffset: { width: 0, height: 0 },
-    shadowOpacity: 10,
-    shadowRadius: 2,
-    borderRadius: 5,
-    elevation:10,
-  },
-  tourHeaderImage: {
-    width: Dimensions.get('window').width - 30,
-    height: 200,
-    borderRadius: 5,
+  loaction: {
+    flex: 2,
   },
   bookingButton: {
     position: 'absolute',
@@ -59,10 +51,18 @@ const styles= StyleSheet.create({
     height:50,
     backgroundColor: 'white',
     fontWeight: 'bold',
+    shadowColor: 'grey',
+    shadowOffset: { width: 0, height: 0 },
+    shadowOpacity: 10,
+    shadowRadius: 2,
+    borderRadius: 5,
+    elevation:10,
+    paddingTop: 15,
+
   },
   buttonText: {
     fontWeight: 'bold',
     textAlign: 'center',
-    fontSize: 16
+    fontSize: 16,
   }
 })
