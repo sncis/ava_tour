@@ -16,7 +16,7 @@ export default class TourDetail extends Component {
             <Text styles={styles.location}>Location</Text>
           </View>
           
-          <TourDetailsList goToLocation={this.props.goToLocationDetails}/>
+          <TourDetailsList goToLocation={this.props.goToLocationDetails} style={styles.tourDetailsList}/>
         </ScrollView>
 
         <TouchableOpacity style={styles.bookingButton} title="Book tour" onPress={this.props.goToTourNavigation}>
@@ -64,5 +64,9 @@ const styles= StyleSheet.create({
     fontWeight: 'bold',
     textAlign: 'center',
     fontSize: 16,
+  },
+  tourDetailsList: {
+    marginBottom: 500,
   }
+
 })
