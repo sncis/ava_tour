@@ -33,6 +33,7 @@ export const tours = [
 
 export const tour1 = [
   {
+    headline: 'Nature, Biergarden & Sigthseeing',
     time: '1 pm',
     location: 'BMW Welt',
     recommendetTime: '2 hours',
@@ -41,6 +42,7 @@ export const tour1 = [
     travelTimeToNextDestination: '1 hour'
   },
   {
+    time: '2 pm',
     location: 'Schlossanlage Schleissheim',
     recommendetTime: '1 hours',
     description: 'BMW WElt takes you on an exciting ride of histoy of BMW',
@@ -48,6 +50,7 @@ export const tour1 = [
     travelTimeToNextDestination: '2 hour'
   },
   {
+    time: '4 pm',
     location: 'Starnberg',
     recommendetTime: '2 hours',
     description: 'BMW WElt takes you on an exciting ride of histoy of BMW',
@@ -55,10 +58,11 @@ export const tour1 = [
     travelTimeToNextDestination: '1 hour'
   },
   {
+    time: '3 pm',
     location: 'Kloster Andach',
     recommendetTime: '2 hours',
     description: 'BMW WElt takes you on an exciting ride of histoy of BMW',
-    nextDestination: 'Drive to Schleißheim',
+    nextDestination: 'Drive to home',
     travelTimeToNextDestination: '1 hour'
   },
 ];

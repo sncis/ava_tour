@@ -1,16 +1,13 @@
 import React, { Component }from 'react';
-import { View, Button } from 'react-native';
-import TourPreviewList from '../components/tourPreviewList';
+import TourPreviewList from '../components/TourPreviewList';
+import { ScrollView } from 'react-native';
 
 export default class TourOptionsScreen extends Component {
   render() {
     return(
-      <View>
-        {/* <TourPreviewList tours={() => this.props.navigation.navigate("TourDetails")}/> */}
-        <TourPreviewList goToTourDetails={() => this.props.navigation.navigate("TourDetails")}/>
-        {/* <Button title="tourOptions" onPress={() => this.props.navigation.navigate("TourDetails")} /> */}
-      </View>
-      
+      <ScrollView>
+          <TourPreviewList goToTourDetails={() => this.props.navigation.navigate("TourDetails")}/>
+      </ScrollView>
     )
   }
 

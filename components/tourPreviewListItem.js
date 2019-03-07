@@ -1,68 +1,96 @@
 import React, { Component } from 'react';
-import { View, Text, Image, StyleSheet, Button } from 'react-native';
+import { View, Text, Image, StyleSheet, TouchableOpacity } from 'react-native';
+import { Rating } from 'react-native-elements';
+
+
+// require("../assets/images/robot-dev.png")
+// uri: image const image = 'https://source.unsplash.com/600x400/?munich';
 
 export default class TourPreviewListItem extends Component {
 
+
   render() {
     return(
-      <View style={styles.viewContainer}>   
-        <Image source={require("../assets/images/robot-dev.png")}></Image>
+      <TouchableOpacity title="" onPress={this.props.navigateToTourDetails} style={styles.touchContainer}>   
+        <Image source={require("../assets/images/munich.jpg")} style={styles.tourPreviewImage}></Image>
         <View style={styles.textContainer}>
           <Text style={styles.tourHeadline}>{this.props.headline}</Text>
-          <Text style={styles.smallText}>{this.props.duration}</Text>
+          <Text style={styles.smallTextDuration}>{this.props.duration}</Text>
           <Text style={styles.smallText}>{this.props.price}</Text>
           <View style={styles.ratingContainer}>
             <Text style={styles.rating}>{this.props.rating}</Text>
+            <Rating style={styles.star}
+              imageSize={20}
+              readonly
+              startingValue={this.props.ratingNum}
+              />
           </View>
         </View>
-        <Button title="tours" onPress={this.props.navigateToTourDetails} />
-
-      </View>
+      </TouchableOpacity>
     );
   };
 };
 
 const styles = StyleSheet.create({
-  viewContainer: {
+  touchContainer: {
     flexDirection: 'row',
     justifyContent: 'flex-start',
-    backgroundColor: 'lightgrey',
-    margin: 20,
-    shadowColor: 'lightgrey',
-    shadowOffset: { width: 3, height: 5 },
+    backgroundColor:'white',
+    margin: 5,
+    shadowColor: 'grey',
+    shadowOffset: { width: 0, height: 0 },
     shadowOpacity: 0.3,
     shadowRadius: 2,
+    borderRadius: 5,
   },
   textContainer: {
     flex: 1,
-    flexWrap: 'wrap',
+    flexDirection: 'column',
+    // flexWrap: 'wrap',
     padding: 10,
   },
   tourHeadline: {
     flex: 1,
     flexWrap: 'wrap',
     color: 'black',
-    fontWeight: 'bold',
-    fontSize: 20,
+    fontWeight: '400',
+    fontSize: 16,
+    marginBottom: 0,
   },
   smallText: {
     color: 'black',
     fontWeight: '100',
-    fontSize: 10,
+    fontSize: 12,
+  },
+  smallTextDuration: {
+    color: 'black',
+    fontWeight: '100',
+    fontSize: 12,
+    marginBottom: 10,
   },
   tourPreviewImage: {
     flex: 1,
-    width:10,
-    height: 50,
-    resizeMode: 'contain',
+    overflow: 'hidden',
+    width: 5,
+    height: 150,
+    resizeMode: 'cover',
+    
   },
   ratingContainer: {
-
+    flexDirection: 'row',
+    alignItems: 'flex-start',
+    justifyContent: 'center',
   },
   rating:{
     marginTop: 10,
+    marginLeft: 0,
+    marginRight: 10,
     color: 'black',
     fontWeight: '100',
-    fontSize: 10
+    fontSize: 12
+  },
+  star: {
+    height:10
   }
+
 });
