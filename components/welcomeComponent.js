@@ -9,15 +9,28 @@ export default class WelcomeComponent extends Component {
       <View
         style= {{ flex:1, flexDirection: 'column', justifyContent: 'space-evenly'}}
         >
-        <View >
+        <View>
           <Text style={styles.welcomeText}>
             Welcome to
           </Text>
         </View>
-        <View >
+        <View>
+          <View>
+            <Image source = {require("../assets/images/logo-400.png")} style={styles.avaLogo}> 
+            </Image>
+          </View>
+          <View>
+            <Text style={styles.welcomeDescription}>Your personalized car tour in Munich</Text>
+          </View>
+
+          </View>
+        {/* <View >
           <Image source = {require("../assets/images/logo-400.png")} style={styles.avaLogo}> 
           </Image>
         </View>
+        <View>
+          <Text style={styles.welcomeDescription}>Your personalized car tour in Munich</Text>
+        </View> */}
         <View>
           <Button title="let's Start" onPress={this.props.goToTourOptions} />
         </View>
@@ -39,10 +52,19 @@ const styles = StyleSheet.create({
     width: '90%',
     color: "blue",
   },
+  
   avaLogo:{
     alignSelf: 'center',
     resizeMode: 'contain',
-    width: '90%',
+    width: '80%',
+    marginBottom: 20,
   },
+  welcomeDescription:{
+    textAlign: 'center',
+    width: '40%',
+    fontSize: 16,
+    fontWeight: '400',
+    alignSelf: 'center',
+  }
   
 });

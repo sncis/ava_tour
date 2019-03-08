@@ -5,8 +5,8 @@ import { MapView } from 'expo';
 import { GOOGLE_MAPS_API_KEY } from '../constants/ApiKeys';
 
 const region ={
-  latitude: 48.1351,
-  longitude: 11.5820,
+  latitude: 48.161620,
+  longitude: 11.568640,
   latitudeDelta: 0.0920,
   longitudeDelta: 0.0420,
 };
@@ -34,15 +34,15 @@ export default class TourNavigationScreen extends Component {
               title="Marienplatz"
               pinColor="red"/>
               <MapView.Marker coordinate={{latitude:48.1772, longitude:11.5563}}
-              title="Marienplatz"
+              title="BMW World"
               pinColor="red"/>
-              <MapView.Polyline
+              {/* <MapView.Polyline
             coordinates={[
               {latitude:48.137393, longitude:11.575448},
               {latitude:48.1772, longitude:11.5563}
             ]}
             strokeColor="red"
-            strokeWeight={6}/ >
+            strokeWeight={6}/ > */}
             {/* <MapViewDirections
               origin={{latitude:48.137393, longitude:11.575448}}
               destination={{latitude:48.1772, longitude:11.5563}}
