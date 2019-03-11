@@ -51,6 +51,7 @@ export default class TourNavigationScreen extends Component {
     return(
       <View>
         <Text>Tour Navigation screen</Text>
+        
         <View>
           <MapView
             style={styles.map}
