@@ -1,8 +1,10 @@
 import React, { Component } from 'react';
-import { View, Text, StyleSheet } from 'react-native';
+import { View, Text, StyleSheet, Button } from 'react-native';
+import axios from 'axios';
 import { MapView } from 'expo';
-// import MapViewDirections from 'react-native-maps-directions';
-import { GOOGLE_MAPS_API_KEY } from '../constants/ApiKeys';
+import Polyline from '@mapbox/polyline';
+import { GOOGLE_API_KEY  } from '../constants/ApiKeys';
+
 
 const region ={
   latitude: 48.161620,
@@ -20,7 +22,32 @@ const markers =[{
 ]
 
 export default class TourNavigationScreen extends Component {
-  render(){
+  constructor(props){
+    super(props);
+    this.state={
+      googleData: []
+    }
+  }
+
+  componentDidMount(){
+    this.getDirection("48.137393,11.575448","48.1772,11.5563")
+  }
+
+  getDirection = async (startPoint, endPoint) => {
+    let responds =  await axios.get(`https://maps.googleapis.com/maps/api/directions/json?origin=${startPoint}&destination=${endPoint}&key=${GOOGLE_API_KEY}`)
+    let points = Polyline.decode(responds.data.routes[0].overview_polyline.points)
+    let coords = points.map((point) => {
+      return { 
+        latitude: point[0],
+        longitude: point[1]
+      }
+    })
+    this.setState({googleData: coords})
+    return points
+   };
+
+
+  render() {
     return(
       <View>
         <Text>Tour Navigation screen</Text>
@@ -36,23 +63,15 @@ export default class TourNavigationScreen extends Component {
               <MapView.Marker coordinate={{latitude:48.1772, longitude:11.5563}}
               title="BMW World"
               pinColor="red"/>
-              {/* <MapView.Polyline
-            coordinates={[
-              {latitude:48.137393, longitude:11.575448},
-              {latitude:48.1772, longitude:11.5563}
-            ]}
-            strokeColor="red"
-            strokeWeight={6}/ > */}
-            {/* <MapViewDirections
-              origin={{latitude:48.137393, longitude:11.575448}}
-              destination={{latitude:48.1772, longitude:11.5563}}
-              apiKey={GOOGLE_MAPS_API_KEY}
-              strokeColor="red"
-              strokeWeight={6}/ > */}
 
+              <MapView.Polyline
+                coordinates={this.state.googleData}
+                strokeColor="red"
+                strokeWeight={6}/ >
           </MapView> 
             
         </View>
+
       </View>
     )
   }
@@ -64,3 +83,7 @@ const styles = StyleSheet.create({
     width: 500,
   }
 })
+
+
+
+// Polyline.decode(this.state.googleData.data.routes[0].overview_polyline.points)

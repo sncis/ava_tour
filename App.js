@@ -18,7 +18,7 @@ const AppNavigator = createStackNavigator({
   TourOptions: TourOptionsScreen,
   TourDetails: TourDetailsScreen,
   TourNavigation: TourNavigationScreen,
-  LocationDetails: LocationDetailsScreen
+  LocationDetails: LocationDetailsScreen,
 
 })
 
