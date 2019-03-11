@@ -1,7 +1,4 @@
 
-
-
-
 export default class Database{
 
     ///////////// hard coded routes
@@ -218,8 +215,6 @@ hardcodedPois(){
         return currentPoiIndex;
     }
     
-
-
     static myInstance = null;
 
     static getInstance() {

@@ -3,9 +3,28 @@ import {ScrollView, View, Button, StyleSheet, Text, Image, TouchableOpacity, Dim
 import TourDetailsList from './TourDetailsList';
 import {tour1} from '../data';
 import PreviewHeaderImageComponent from './PreviewHeaderImageComponent';
-
+import SelectionOverlay from './SelectionOverlay';
 
 export default class TourDetail extends Component {
+  constructor(props){
+    super(props);
+    this.state = {
+      showCarOverlay: false,
+    }
+  }
+
+  showCarOverlay = () => {
+    if(!this.state.showCarOverlay){
+      this.setState({
+        showCarOverlay: true
+      })
+    }else{
+      this.setState({
+        showCarOverlay: false
+      })
+    }
+  }; 
+
   render() {
     return(
       <View>
@@ -15,13 +34,16 @@ export default class TourDetail extends Component {
             <Text style={styles.time}>Time</Text>
             <Text styles={styles.location}>Location</Text>
           </View>
-          
           <TourDetailsList goToLocation={this.props.goToLocationDetails} style={styles.tourDetailsList}/>
         </ScrollView>
 
-        <TouchableOpacity style={styles.bookingButton} title="Book tour" onPress={this.props.goToTourNavigation}>
+        {/* <TouchableOpacity style={styles.bookingButton} title="Book tour" onPress={this.props.goToTourNavigation && this.showCarOverlay}> */}
+        <TouchableOpacity style={styles.bookingButton} title="Book tour" onPress={this.showCarOverlay}>
+
           <Text style={styles.buttonText}>BOOK TOUR</Text>
         </TouchableOpacity>
+        {this.state.showCarOverlay && <SelectionOverlay forNo={this.props.goToTourNavigation}/>}
+
       </View>
     )
   }

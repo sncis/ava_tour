@@ -81,8 +81,8 @@ const styles = StyleSheet.create({
   map:{
     height: 500,
     width: 500,
-  }
-})
+  },
+});
 
 
 
