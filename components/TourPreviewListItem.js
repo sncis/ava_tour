@@ -11,7 +11,6 @@ export default class TourPreviewListItem extends Component {
 
   onTourSelect(tourName){
     dbInstance.setCurrentRouteName(tourName);
-    console.log(tourName);
     return this.props.navigateToTourDetails();
   }
 

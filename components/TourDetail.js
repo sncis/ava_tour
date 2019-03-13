@@ -29,7 +29,7 @@ export default class TourDetail extends Component {
 
   render() {
     return(
-      <View>
+      <View style={styles.page}>
         <ScrollView style={styles.scrollContainer}> 
          <PreviewHeaderImageComponent tourName={this.state.currentTourName} />
           <View style={styles.timeLocationContainer}>
@@ -39,12 +39,12 @@ export default class TourDetail extends Component {
           <TourDetailsList goToLocation={this.props.goToLocationDetails} style={styles.tourDetailsList} tourName={this.state.currentTourName} />
         </ScrollView>
 
-        {/* <TouchableOpacity style={styles.bookingButton} title="Book tour" onPress={this.props.goToTourNavigation && this.showCarOverlay}> */}
-        <TouchableOpacity style={styles.bookingButton} title="Book tour" onPress={this.showCarOverlay}>
+        <TouchableOpacity style={styles.bookingButton} title="Book tour" onPress={this.props.goToTourNavigation}>
+        {/* <TouchableOpacity style={styles.bookingButton} title="Book tour" onPress={this.showCarOverlay}> */}
 
           <Text style={styles.buttonText}>BOOK TOUR</Text>
-        </TouchableOpacity>
-        {this.state.showCarOverlay && <SelectionOverlay forNo={this.props.goToTourNavigation}/>}
+        </TouchableOpacity >
+        {/* {this.state.showCarOverlay && <SelectionOverlay forNo={this.props.goToTourNavigation}/>} */}
 
       </View>
     )
@@ -52,6 +52,10 @@ export default class TourDetail extends Component {
 }
 
 const styles= StyleSheet.create({
+  page: {
+    position: 'relative',
+    height: Dimensions.get('window').height,
+  },
   scrollContainer: {
     padding:15,
   },
@@ -70,16 +74,15 @@ const styles= StyleSheet.create({
   },
   bookingButton: {
     position: 'absolute',
-    bottom: 0,
+    bottom: 100,
     width: Dimensions.get('window').width,
-    height:50,
+    height: 50,
     backgroundColor: 'white',
     fontWeight: 'bold',
     shadowColor: 'grey',
     shadowOffset: { width: 0, height: 0 },
     shadowOpacity: 10,
     shadowRadius: 2,
-    borderRadius: 5,
     elevation:10,
     paddingTop: 15,
 

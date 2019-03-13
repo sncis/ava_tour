@@ -1,5 +1,5 @@
 import React, {Component } from 'react';
-import { StyleSheet, Text } from 'react-native';
+import { StyleSheet, Text, View } from 'react-native';
 import uuidv1 from "uuid";
 import TourDetailsListItem from './TourDetailsListItem';
 import dbInstance from '../database/Database';
@@ -19,7 +19,12 @@ export default class TourDetailsList extends Component {
 
   render(){
     return(
-      <Text>{this.state.currentPOIs}</Text>
+      <View>
+         <Text>{this.props.tourName}</Text>
+        <Text>{this.state.currentPOIs}</Text>
+
+      </View>
+     
     )
   }
 
