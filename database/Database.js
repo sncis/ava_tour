@@ -88,6 +88,32 @@ static poiDefs = [
     },
 ];
 
+hardCodedTours(){
+    //headline=
+    // {item.headline} duration={item.duration} 
+    // price={item.price} rating={item.rating}
+    return [
+        {
+            routeName   : 'nature, beergarden, seightseeing',
+            duration    : "3 hrs",
+            price       : "50 Euro",
+            rating      : "4.5"
+        },
+        {
+            routeName   : 'history and beergarden at lake',
+            duration    : "4 hrs",
+            price       : "60 Euro",
+            rating      : "4.0"
+        }
+        ,
+        {
+            routeName   : 'car driving and bavarian lakes',
+            duration    : "3.5 hrs",
+            price       : "30 Euro",
+            rating      : "4.7"
+        }
+    ];
+}
    
 hardcodedPois(){
     return [
@@ -257,12 +283,16 @@ hardcodedPois(){
      }
      // returns aviable route (names) for given cityName
      // cityName is parameter for future use
-     getRouteNames(cityName){
+     getTourNames(cityName){
          var result = [];
          Database.routeNames.forEach((rN)=>{
             result.push(rN);
          });
          return result;
+     }
+
+     getAllTours(cityName){
+         return hardCodedTours();
      }
 
 
