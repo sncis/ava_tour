@@ -12,13 +12,12 @@ export default class TourPreviewListItem extends Component {
   onTourSelect(tourName){
     dbInstance.setCurrentRouteName(tourName);
     console.log(tourName);
-
-    return this.props.navigateToTourDetails;
+    return this.props.navigateToTourDetails();
   }
 
   render() {
     return(
-      <TouchableOpacity title="" onPress={this.onTourSelect(this.props.headline)} style={styles.touchContainer}>   
+      <TouchableOpacity title="" onPress={() => this.onTourSelect(this.props.headline)} style={styles.touchContainer}>   
         <Image source={require("../assets/images/munich.jpg")} style={styles.tourPreviewImage}></Image>
         <View style={styles.textContainer}>
           <Text style={styles.tourHeadline}>{this.props.headline}</Text>
