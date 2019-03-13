@@ -32,7 +32,7 @@ export default class WelcomeComponent extends Component {
           <Text style={styles.welcomeDescription}>Your personalized car tour in Munich</Text>
         </View> */}
         <View>
-          <Button title="let's Start" onPress={this.props.goToTourOptions} />
+          <Button title="let's Start" onPress={this.props.goToPreferenceSelection} />
         </View>
     </View>
     </ImageBackground>
