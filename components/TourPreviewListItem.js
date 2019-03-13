@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import { View, Text, Image, StyleSheet, TouchableOpacity } from 'react-native';
 import { Rating } from 'react-native-elements';
+import dbInstance from '../database/Database';
 
 
 // require("../assets/images/robot-dev.png")
@@ -8,10 +9,16 @@ import { Rating } from 'react-native-elements';
 
 export default class TourPreviewListItem extends Component {
 
+  onTourSelect(tourName){
+    dbInstance.setCurrentRouteName(tourName);
+    console.log(tourName);
+
+    return this.props.navigateToTourDetails;
+  }
 
   render() {
     return(
-      <TouchableOpacity title="" onPress={this.props.navigateToTourDetails} style={styles.touchContainer}>   
+      <TouchableOpacity title="" onPress={this.onTourSelect(this.props.headline)} style={styles.touchContainer}>   
         <Image source={require("../assets/images/munich.jpg")} style={styles.tourPreviewImage}></Image>
         <View style={styles.textContainer}>
           <Text style={styles.tourHeadline}>{this.props.headline}</Text>

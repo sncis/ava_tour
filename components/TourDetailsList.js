@@ -1,24 +1,44 @@
-import React from 'react';
-import { StyleSheet } from 'react-native';
+import React, {Component } from 'react';
+import { StyleSheet, Text } from 'react-native';
 import uuidv1 from "uuid";
 import TourDetailsListItem from './TourDetailsListItem';
-import { tour1 } from '../data';
+import dbInstance from '../database/Database';
 
-const TourDetailsList = (props) => (
-  tour1.map(item => (
-      <TourDetailsListItem  style={styles.tourDetailListItem}
-      goLocationDetails= {props.goToLocation}
-      location={item.location} 
-      time={item.time}
-      recommendedTime={item.recommendedTime} 
-      description={item.description}
-      nextDestination={item.nextDestination}
-      travelTimeToNextDestination={item.travelTimeToNextDestination} 
-      key={uuidv1()}/>
-  ))
-)
 
-export default TourDetailsList;
+export default class TourDetailsList extends Component {
+  constructor(props){
+    super(props);
+    this.state={
+      currentPOIs: dbInstance.getRouteContent(props.tourName)
+    }
+  }
+
+  componentDidMount(){
+    console.log(this.state.currentPOIs)
+  }
+
+  render(){
+    return(
+      <Text>{this.state.currentPOIs}</Text>
+    )
+  }
+
+
+}
+//   tour1.map(item => (
+//       <TourDetailsListItem  style={styles.tourDetailListItem}
+//       goLocationDetails= {props.goToLocation}
+//       location={item.location} 
+//       time={item.time}
+//       recommendedTime={item.recommendedTime} 
+//       description={item.description}
+//       nextDestination={item.nextDestination}
+//       travelTimeToNextDestination={item.travelTimeToNextDestination} 
+//       key={uuidv1()}/>
+//   ))
+// )
+
+// export default TourDetailsList;
 
 
 const styles = StyleSheet.create({

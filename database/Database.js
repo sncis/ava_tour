@@ -1,5 +1,5 @@
 
-export default class Database{
+class Database{
 
     ///////////// hard coded routes
     // remove this section after 
@@ -241,19 +241,11 @@ hardcodedPois(){
         return currentPoiIndex;
     }
     
-    static myInstance = null;
-
-    static getInstance() {
-        if (Database.myInstance == null) {
-            Database.myInstance = new Database();        
-        }
-        return this.myInstance;
-    }
     
     // needs citi name for future use
     // returns array of map entries with given keys
     // routeName,PoiName,poiLocation,poiBriefDescription,poiDescription,poiImageUrl
-    getAllRoutesContent(cityName){
+    getAllRoutesContent(){
         return this.hardcodedPois();
     }
     // needs citi name for future use
@@ -279,7 +271,7 @@ hardcodedPois(){
       // needs result of getAllRoutesContent as allRoutesContent
       // returns array of Map entries for given key routeName = nameOfRoute
       getRouteContent(allRoutesContent, nameOfRoute){
-         return this.getAllRoutesContent().filter(t=>t.routeName===nameOfRoute);
+         return this.getAllRoutesContent().filter(t=>t.routeName === nameOfRoute);
      }
      // returns aviable route (names) for given cityName
      // cityName is parameter for future use
@@ -292,10 +284,14 @@ hardcodedPois(){
      }
 
      getAllTours(cityName){
-         return hardCodedTours();
+         return this.hardCodedTours();
      }
 
 
 }
+
+const dbInstance = new Database();
+
+export default dbInstance;
     
 
