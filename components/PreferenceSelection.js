@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { StyleSheet, Text, View, Image,TouchableOpacity, Dimensions } from 'react-native';
-import PreferenceButton from './PreferenceButton'
 import uuidv1 from "uuid";
+import PreferenceButton from './PreferenceButton';
 
 
 
@@ -22,18 +22,21 @@ export default class PreferenceSelection extends Component {
   toogleSelectPreference = (label) => {
     if(this.state.preferences.has(label)){
       this.state.preferences.delete(label)
-     
     }else{
       this.state.preferences.add(label);
-      
     }
-    console.log(this.state.preferences)
   }
 
   createPreferenceButton = (preference) => (
     <PreferenceButton preferenceName={preference} handelPreferenceChange={() => this.toogleSelectPreference(preference)} key={uuidv1()}
     />
   );
+
+  setPreferences = () => {
+    console.log(this.state.preferences);
+    return this.props.navigateToResults();
+  }
+
 
   render(){
     return(
@@ -51,7 +54,7 @@ export default class PreferenceSelection extends Component {
         <View style={styles.preferenceContainer}> 
           {this.getPreferences().map((preference) => this.createPreferenceButton(preference))}
         </View>
-        <TouchableOpacity style={styles.seeResultButton} onPress={this.props.navigateToResults}>
+        <TouchableOpacity style={styles.seeResultButton} onPress={() => this.setPreferences()}>
           <Text style={styles.seeResultButtonText}>See Results</Text>
         </TouchableOpacity>
       </View>
