@@ -1,38 +1,37 @@
 import React from 'react';
 import uuidv1 from "uuid";
-import { tours } from '../data';
 import TourPreviewListItem from './TourPreviewListItem';
-import {Database} from '../database/Database';
+import dbInstance  from '../database/Database';
 
-const ratingNum = Math.floor(Math.random() * 5 )
 
 generateRandomNumer = () => {
-  const ratingNum = Math.floor(Math.random() * 5 + 1 )
+  const ratingNum = Math.floor(Math.random() * 5 + 1 );
+  return ratingNum;
 }
 
-export default class RouteData extends React.Component {
+export default class TourPreviewList extends React.Component {
   constructor(props){
     super(props)
   }
 
-  onTourSelect(db, tourName){
-    db.setCurrentRouteName(tourName);
-    return props.goToTourDetails;
-  }
-
   createRoutes(){
-    var db = Database.getInstance();
-    var routes = db.getAllTours('munic');
-    return routes.map(tour=>{
-      <TourPreviewListItem 
-        navigateToTourDetails= {this.onTourSelect(db,tour.tourName)} 
-        headline={tour.tourName} 
+    let routes = dbInstance.getAllTours('munic');
+    let result= [];
+    routes.forEach(tour => {
+      result.push(
+        <TourPreviewListItem 
+        navigateToTourDetails= {this.props.goToTourDetails} 
+        headline={tour.routeName} 
         duration={tour.duration} 
         price={tour.price} 
         rating={tour.rating} 
-        ratingNum={this.generateRandomNumer()} 
+        ratingNum={this.generateRandomNumer} 
         key={uuidv1()} />
+
+      )
     });
+    return result;
+    
   }
 
   render() {

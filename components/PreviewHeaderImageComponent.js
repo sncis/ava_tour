@@ -3,9 +3,9 @@ import { View, Text, Image, StyleSheet, Dimensions } from 'react-native';
 import {tour1 } from '../data';
 
 
-const PreviewHeaderImageComponent = () => (
+const PreviewHeaderImageComponent = (props) => (
   <View style={styles.headerContainer}>
-    <Text style={styles.headline}>{tour1[0].location}</Text>
+    <Text style={styles.headline}>{props.tourName}</Text>
     <View style={styles.imageContainer}>
     <Image style={styles.tourHeaderImage} source={require("../assets/images/munich.jpg")} />
     </View>

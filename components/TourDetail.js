@@ -4,12 +4,14 @@ import TourDetailsList from './TourDetailsList';
 import {tour1} from '../data';
 import PreviewHeaderImageComponent from './PreviewHeaderImageComponent';
 import SelectionOverlay from './SelectionOverlay';
+import dbInstance from '../database/Database';
 
 export default class TourDetail extends Component {
   constructor(props){
     super(props);
     this.state = {
       showCarOverlay: false,
+      currentTourName: dbInstance.getCurrentRouteName(),
     }
   }
 
@@ -29,12 +31,12 @@ export default class TourDetail extends Component {
     return(
       <View>
         <ScrollView style={styles.scrollContainer}> 
-         <PreviewHeaderImageComponent />
+         <PreviewHeaderImageComponent tourName={this.state.currentTourName} />
           <View style={styles.timeLocationContainer}>
             <Text style={styles.time}>Time</Text>
             <Text styles={styles.location}>Location</Text>
           </View>
-          <TourDetailsList goToLocation={this.props.goToLocationDetails} style={styles.tourDetailsList}/>
+          <TourDetailsList goToLocation={this.props.goToLocationDetails} style={styles.tourDetailsList} tourName={this.state.currentTourName} />
         </ScrollView>
 
         {/* <TouchableOpacity style={styles.bookingButton} title="Book tour" onPress={this.props.goToTourNavigation && this.showCarOverlay}> */}
