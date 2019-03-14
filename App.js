@@ -6,6 +6,9 @@ import TourDetailsScreen from './screens/TourDetailsScreen';
 import TourNavigationScreen from './screens/TourNavigationScreen';
 import LocationDetailsScreen from './screens/LocationDetailsScreen';
 import PreferenceSelectionScreen from './screens/PreferenceSelectionScreen';
+import PickUpFormScreen from './screens/PickUpFormScreen';
+import PaymentScreen from './screens/PaymentScreen';
+import ConfirmationScreen from './screens/ConfirmationScreen'
 
  class App extends React.Component {
   render() {
@@ -21,6 +24,9 @@ const AppNavigator = createStackNavigator({
   TourDetails: TourDetailsScreen,
   TourNavigation: TourNavigationScreen,
   LocationDetails: LocationDetailsScreen,
+  PickUpForm: PickUpFormScreen,
+  Payment: PaymentScreen,
+  Conirfmation: ConfirmationScreen,
 
 })
 
