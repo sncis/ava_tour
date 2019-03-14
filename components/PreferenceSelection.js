@@ -34,6 +34,8 @@ export default class PreferenceSelection extends Component {
 
   setPreferences = () => {
     console.log(this.state.preferences);
+    this.state.preferences.clear();
+    console.log(this.state.preferences)
     return this.props.navigateToResults();
   }
 
