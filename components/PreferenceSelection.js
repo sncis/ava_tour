@@ -2,7 +2,8 @@ import React, { Component } from 'react';
 import { StyleSheet, Text, View, Image,TouchableOpacity, Dimensions } from 'react-native';
 import uuidv1 from "uuid";
 import PreferenceButton from './PreferenceButton';
-
+import AvatarComponent from './AvatarComponent';
+import MainButton from './MainButton';
 
 
 export default class PreferenceSelection extends Component {
@@ -25,6 +26,7 @@ export default class PreferenceSelection extends Component {
     }else{
       this.state.preferences.add(label);
     }
+    console.log(`state from toogle ${this.state.preferences.size}`)
   }
 
   createPreferenceButton = (preference) => (
@@ -33,9 +35,9 @@ export default class PreferenceSelection extends Component {
   );
 
   setPreferences = () => {
-    console.log(this.state.preferences);
+    console.log(`state from setPreferences ${this.state.preferences.size}`);
     this.state.preferences.clear();
-    console.log(this.state.preferences)
+    console.log(this.state.preferences.size)
     return this.props.navigateToResults();
   }
 
@@ -43,22 +45,13 @@ export default class PreferenceSelection extends Component {
   render(){
     return(
       <View>
-        <View style={styles.imageContainer}>
-          <Image source={require('../assets/images/logo-300.png')} style={styles.avatar}/>
-        </View>
-        <View style={styles.textSection}>
-        <Text style={styles.text}>
-          Please select your interests and I will prepare some Tours for you
-        </Text>
-        
-        </View>
+       <AvatarComponent text='Hey, I am Anton, your personal guide. Select your interests and I will prepare some Tours for you' />
 
         <View style={styles.preferenceContainer}> 
           {this.getPreferences().map((preference) => this.createPreferenceButton(preference))}
         </View>
-        <TouchableOpacity style={styles.seeResultButton} onPress={() => this.setPreferences()}>
-          <Text style={styles.seeResultButtonText}>See Results</Text>
-        </TouchableOpacity>
+        <MainButton text='See Results' pressFunction={() => this.setPreferences()}/>
+       
       </View>
 
     )
@@ -71,41 +64,7 @@ const styles= StyleSheet.create({
     flexDirection: 'row',
     flexWrap: 'wrap'
   },
-  imageContainer: {
-    backgroundColor: 'green',
-    margin: 50,
-
-  },
-  avatar: {
-    alignSelf: 'center',
-    
-  },
   textSection:{
-    margin:50,
+    marginBottom:40,
   },
-  text:{
-    textAlign: 'center',
-    fontWeight: '300',
-    color: 'black',
-    fontSize: 24
-  },
-  seeResultButton: {
-    backgroundColor: 'black',
-    shadowColor: 'grey',
-    shadowOffset: { width: 0, height: 0 },
-    shadowOpacity: 10,
-    shadowRadius: 2,
-    elevation:10,
-    padding:10,
-    width: Dimensions.get('window').width / 2,
-    alignSelf: 'center',
-    marginTop:50,    
-  },
-  seeResultButtonText: {
-    textAlign: 'center',
-    color:'white',
-    fontSize: 16,
-    fontWeight: 'bold'
-  },
-
 })

@@ -3,9 +3,13 @@ import { StyleSheet, Text, View, TouchableOpacity, Dimensions } from 'react-nati
 
 
 export default class PreferenceButton extends Component {
-  state = {
+  constructor(props){
+    super(props);
+    this.state={
       selected: false
+    }
   }
+
   
   toogleSelectionChange= () => {
     const { handelPreferenceChange, preferenceName } = this.props;

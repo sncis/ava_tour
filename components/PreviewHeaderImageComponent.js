@@ -19,8 +19,9 @@ const styles = StyleSheet.create({
     // margin:20,
   },
   headline: {
-    fontSize: 16,
-    fontWeight: '500',
+    // width: '60%',
+    fontSize: 20,
+    fontWeight: '400',
     color: 'black',
     marginBottom: 10,
     marginLeft:5,

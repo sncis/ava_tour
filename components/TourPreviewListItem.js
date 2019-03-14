@@ -41,10 +41,12 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     justifyContent: 'flex-start',
     backgroundColor:'white',
-    margin: 5,
+    marginTop: 7,
+    marginLeft:15,
+    marginRight:15,
     shadowColor: 'grey',
     shadowOffset: { width: 0, height: 0 },
-    shadowOpacity: 0.3,
+    shadowOpacity: 0.5,
     shadowRadius: 2,
     borderRadius: 5,
   },
@@ -79,6 +81,7 @@ const styles = StyleSheet.create({
     width: 5,
     height: 150,
     resizeMode: 'cover',
+    overflow: 'hidden'
     
   },
   ratingContainer: {
