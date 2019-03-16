@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { StyleSheet, Text, View, TouchableOpacity, Dimensions } from 'react-native';
+import { StyleSheet, Text, View, TouchableOpacity, Dimensions, Image } from 'react-native';
 
 
 export default class PreferenceButton extends Component {
@@ -11,7 +11,7 @@ export default class PreferenceButton extends Component {
   }
 
   
-  toogleSelectionChange= () => {
+  toogleSelectionChange = () => {
     const { handelPreferenceChange, preferenceName } = this.props;
     this.setState(({selected}) => ({
       selected: !selected
@@ -24,7 +24,10 @@ export default class PreferenceButton extends Component {
       <TouchableOpacity 
         style={this.state.selected ? styles.buttonSelected : styles.buttonUnselected}
         onPress={() => this.toogleSelectionChange()}>
-       <Text style={this.state.selected ? styles.buttonTextSelected : styles.buttonTextUnselected}>{this.props.preferenceName}</Text>
+        <View style={styles.iconWrapper}>
+          <Image source={require("../assets/images/History_icon.png")} style={styles.icon}/>
+          <Text style={this.state.selected ? styles.buttonTextSelected : styles.buttonTextUnselected}>{this.props.preferenceName}</Text>
+        </View>
      </TouchableOpacity> 
 
     )
@@ -32,14 +35,16 @@ export default class PreferenceButton extends Component {
 };
 
 const styles= StyleSheet.create({
-  preferenceContainer:{
-    flexDirection: 'row',
-    flexWrap: 'wrap'
+  iconWrapper:{
+    flexDirection: 'column',
+    flexWrap: 'wrap',
+    justifyContent: "space-between",
+    alignItems: 'center',
   },
   buttonUnselected:{
     backgroundColor:'lightgrey',
     margin: 20,
-    padding: 20,
+    padding: 10,
     width: Dimensions.get('window').width /2 - 40,
     borderRadius: 3,
     alignItems: 'center',
@@ -52,7 +57,7 @@ const styles= StyleSheet.create({
   buttonSelected: {
     backgroundColor:'blue',
     margin: 20,
-    padding: 20,
+    padding: 10,
     width: Dimensions.get('window').width /2 - 40,
     alignItems: 'center',
     borderRadius: 3,
@@ -62,6 +67,12 @@ const styles= StyleSheet.create({
     shadowRadius: 1,
     elevation:10,
    
+  },
+  icon: {
+    width: 40,
+    height: 40,
+    marginBottom: 5,
+    resizeMode: 'contain'
   },
   buttonTextUselected: {
     textAlign: 'center'

@@ -8,9 +8,6 @@ const TourDetailsListItem = (props) => (
     
     <View style={styles.timelineContainer}>
         <Text style={styles.time}>{props.time}</Text>
-        {/* <View style={styles.imageContainer}>
-          <Image style={styles.timelineArrow} source={require("../assets/images/arrowDown.png")} />
-        </View> */}
     </View>
 
     <View style={styles.locationContainer}>
