@@ -1,14 +1,18 @@
 import React from 'react';
-import { View, Text, Image, StyleSheet, Dimensions } from 'react-native';
+import { View, Text, Image, StyleSheet } from 'react-native';
 import {tour1 } from '../data';
+import HorizontalSlider from '../components/HorizontalSlider';
+
+
 
 
 const PreviewHeaderImageComponent = (props) => (
   <View style={styles.headerContainer}>
     <Text style={styles.headline}>{props.tourName}</Text>
-    <View style={styles.imageContainer}>
-    <Image style={styles.tourHeaderImage} source={require("../assets/images/munich.jpg")} />
-    </View>
+    <HorizontalSlider />
+    {/* <View style={styles.imageContainer}>
+    <Image style={styles.tourHeaderImage} source={require("../assets/images/munich.jpg")} /> */}
+    {/* </View> */}
   </View>
 )
 

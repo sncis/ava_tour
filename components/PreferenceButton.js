@@ -20,12 +20,14 @@ export default class PreferenceButton extends Component {
   }
 
   render(){
+    const image = `require("../assets/images/${this.props.preferenceName}_icon.png")`
+    console.log(image)
     return(
       <TouchableOpacity 
         style={this.state.selected ? styles.buttonSelected : styles.buttonUnselected}
         onPress={() => this.toogleSelectionChange()}>
         <View style={styles.iconWrapper}>
-          <Image source={require("../assets/images/History_icon.png")} style={styles.icon}/>
+          <Image source={image} style={styles.icon}/>
           <Text style={this.state.selected ? styles.buttonTextSelected : styles.buttonTextUnselected}>{this.props.preferenceName}</Text>
         </View>
      </TouchableOpacity> 
