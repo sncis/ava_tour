@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { StyleSheet, View, Keyboard } from 'react-native';
+import { StyleSheet, View, Keyboard, Dimensions } from 'react-native';
 import { Input } from 'react-native-elements';
 
 
@@ -124,6 +124,7 @@ const styles = StyleSheet.create({
   },
   smallContainer: {
     flexDirection: 'row',
+    width: Dimensions.get("window").width,
     flexWrap: 'wrap',
    
   }

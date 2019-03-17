@@ -42,13 +42,12 @@ export default class PaymentScreen extends Component {
           </TouchableOpacity>
         </View>
 
-        <View style={styles.inputContainer}>
-        {this.state.paymentMethode === "visa" && <PaymentFormVisa />}
-        {this.state.paymentMethode === 'gpay'  && <PaymentGpay />}
+        <View style={styles.paymentInputContainer}>
+          {this.state.paymentMethode === "visa" && <PaymentFormVisa />}
+          {this.state.paymentMethode === 'gpay'  && <PaymentGpay />}
         </View>
         <View style={styles.button}>
-         <MainButton pressFunction={() => this.props.navigation.navigate('Conirfmation')} text="Order Now" style={styles.button}/>
-
+          <MainButton pressFunction={() => this.props.navigation.navigate('Conirfmation')} text="Order Now" style={styles.button}/>
         </View>
 
       </ScrollView>
@@ -83,10 +82,7 @@ const styles = StyleSheet.create({
     margin: 10,
   },
   button :{
-    
-  
     marginBottom: 100,
-
   },
 
 })
