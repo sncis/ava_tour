@@ -1,5 +1,5 @@
 import React, { Component} from 'react';
-import {View } from 'react-native';
+import {View, StyleSheet, Dimensions } from 'react-native';
 import PickUpForm from '../components/PickUpForm';
 import AvatarComponent from '../components/AvatarComponent';
 import MainButton from '../components/MainButton';
@@ -17,10 +17,13 @@ export default class PickUpFormScreen extends Component {
 
   render(){
     return(
-      <View>
+      <View style={styles.mainContainer}>
         <AvatarComponent text={`Great! You selected the ${this.state.currentRoute} Tour.`}/>
         <PickUpForm />
-        <MainButton pressFunction={() => this.props.navigation.navigate('Payment')} text="Next" />
+        <View style={styles.button}>
+         <MainButton pressFunction={() => this.props.navigation.navigate('Payment')} text="Next" />
+        </View>
+
       </View>
 
     )
@@ -29,3 +32,13 @@ export default class PickUpFormScreen extends Component {
 }
   
 
+const styles = StyleSheet.create({
+  mainContainer: {
+    position: 'relative',
+  },
+  button: {
+    position: 'absolute',
+    bottom: -100, 
+    alignSelf: 'center'
+  }
+})

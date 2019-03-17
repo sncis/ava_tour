@@ -50,7 +50,10 @@ export default class PreferenceSelection extends Component {
         <View style={styles.preferenceContainer}> 
           {this.getPreferences().map((preference) => this.createPreferenceButton(preference))}
         </View>
-        <MainButton text='See Results' pressFunction={() => this.setPreferences()}/>
+        <View style={styles.button}>
+         <MainButton text='Show Tours' pressFunction={() => this.setPreferences()} />
+
+        </View>
        
       </View>
 
@@ -67,4 +70,7 @@ const styles= StyleSheet.create({
   textSection:{
     marginBottom:40,
   },
+  button: {
+    marginTop: 30,
+  }
 })
