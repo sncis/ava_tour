@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import {ScrollView, View, Button, StyleSheet, Text, Image, TouchableOpacity, Dimensions} from 'react-native';
+import { connect } from 'react-redux';
 import TourDetailsList from './TourDetailsList';
 import PreviewHeaderImageComponent from './PreviewHeaderImageComponent';
 import dbInstance from '../database/Database';
@@ -7,40 +8,29 @@ import MainButton from './MainButton';
 
 import store from '../store/store/store'
 
-export default class TourDetail extends Component {
-  constructor(props){
-    super(props);
-    this.state = {
-      showCarOverlay: false,
-      currentTourName: dbInstance.getCurrentRouteName(),
-    }
-  }
 
-  showCarOverlay = () => {
-    if(!this.state.showCarOverlay){
-      this.setState({
-        showCarOverlay: true
-      })
-    }else{
-      this.setState({
-        showCarOverlay: false
-      })
-    }
-  }; 
+const mapStateToProps = (state) => {
+  return {
+    currentTourName: state.selectedTourName
+  }
+}
+
+export class TourDetailComponent extends Component {
+  componentWillMount = () => (
+    console.log(this.props.currentTourName)
+  )
 
   render() {
-    console.log(store.getState())
-
     return(
       <View style={styles.page}>
         <ScrollView style={styles.scrollContainer}> 
         <View style={styles.container}> 
-         <PreviewHeaderImageComponent tourName={this.state.currentTourName} />
+         <PreviewHeaderImageComponent tourName={this.props.currentTourName} />
           <View style={styles.timeLocationContainer}>
             <Text style={styles.time}>Time</Text>
             <Text styles={styles.location}>Location</Text>
           </View>
-          <TourDetailsList goToLocation={this.props.goToLocationDetails} style={styles.tourDetailsList} tourName={this.state.currentTourName} />
+          <TourDetailsList goToLocation={this.props.goToLocationDetails} style={styles.tourDetailsList} tourName={this.props.currentTourName} />
           </View>
         </ScrollView>
 
@@ -53,6 +43,12 @@ export default class TourDetail extends Component {
     )
   }
 }
+
+
+const TourDetail = connect(mapStateToProps, null)(TourDetailComponent)
+
+export default TourDetail;
+
 
 const styles= StyleSheet.create({
   page: {

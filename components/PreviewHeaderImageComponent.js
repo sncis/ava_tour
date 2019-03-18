@@ -1,6 +1,5 @@
 import React from 'react';
 import { View, Text, Image, StyleSheet } from 'react-native';
-import {tour1 } from '../data';
 import HorizontalSlider from '../components/HorizontalSlider';
 
 

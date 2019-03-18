@@ -1,26 +1,30 @@
 import React, {Component } from 'react';
 import { StyleSheet, Text, View } from 'react-native';
 import uuidv1 from "uuid";
-import { tour1} from '../data'
+import { connect } from 'react-redux';
+import { getCurrentRouteContent } from '../store/actions/actions'
 import TourDetailsListItem from './TourDetailsListItem';
-import dbInstance from '../database/Database';
 
 
-export default class TourDetailsList extends Component {
-  constructor(props){
-    super(props);
-    this.state={
-      currentPOIs: dbInstance.getRouteContent(props.tourName)
-    }
+const mapDispatchToProps = (dispatch) => {
+  return {
+    getTourContent: () => dispatch(getCurrentRouteContent())
   }
-
-  componentDidMount(){
-    console.log(this.state.currentPOIs)
+}
+const mapStateToProps = (state) => {
+  return{ 
+    tour : state.routeContent
   }
+}
 
+export class TourDetailsComponent extends Component {
+  componentWillMount = () =>{
+    this.props.getTourContent();
+  }
+ 
   render(){
     return(
-      tour1.map(item => (
+      this.props.tour.map(item => (
         <TourDetailsListItem  style={styles.tourDetailListItem}
         goLocationDetails= {this.props.goToLocation}
         location={item.location} 
@@ -46,10 +50,10 @@ export default class TourDetailsList extends Component {
   // }
 
 
+const TourDetailsList = connect(mapStateToProps, mapDispatchToProps)(TourDetailsComponent)
 
+export default TourDetailsList
  
-
-// export default TourDetailsList;
 
 
 const styles = StyleSheet.create({

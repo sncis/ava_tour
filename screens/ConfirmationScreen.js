@@ -1,20 +1,26 @@
 import React, {Component} from 'react';
 import {View, StyleSheet, Text, Image, ScrollView} from 'react-native';
-import dbInstance from '../database/Database';
+import { connect } from 'react-redux';
 import AvatarComponent from '../components/AvatarComponent';
+import store from '../store/store/store'
 
-export default class ConfirmationScreen extends Component {
-  constructor(props){
-    super(props);
-    this.state = {
-      currentRoute : dbInstance.getCurrentRouteName(),
-    }
+const mapStateToProps = (state) => {
+  return{
+    currentRoute: state.selectedTourName,
+    location: state.pickUpLocation,
+    time: state.startTime,
+    date: state.startDate,
+
   }
+}
 
+export class Confirmation extends Component {
+  
   render(){
+    console.log(store.getState())
     return(
       <ScrollView>
-        <AvatarComponent text={`Perfect! You ordered the ${this.state.currentRoute} Tour.`}/>
+        <AvatarComponent text={`Perfect! You ordered the ${this.props.currentRoute} Tour.`}/>
         <View style={styles.container}>
         <View style={styles.imageContainer}>
           <Image source={require('../assets/images/confirmationPhone.png')} style={styles.confiPhone} />
@@ -23,11 +29,11 @@ export default class ConfirmationScreen extends Component {
           <View style={styles.pickUpPrevContainer}>
             <View style={styles.pickUpPrevIcon}>
               <Image source={require('../assets/images/location_icon.png')} style={styles.icon} />
-              <Text style={styles.pickUpPrevText}>at the INNSIDE Hotel</Text>
+              <Text style={styles.pickUpPrevText}>{this.props.location}</Text>
             </View>
             <View style={styles.pickUpPrevIcon}>
               <Image source={require('../assets/images/hour_icon.png')} style={styles.icon} />
-              <Text style={styles.pickUpPrevText}>now</Text>
+              <Text style={styles.pickUpPrevText}>{this.props.time}</Text>
             </View>
             <View style={styles.pickUpPrevIcon}>
               <Image source={require('../assets/images/car_icon.png')} style={styles.icon} />
@@ -42,6 +48,10 @@ export default class ConfirmationScreen extends Component {
     )
   }
 }
+
+const ConfirmationScreen = connect(mapStateToProps, null)(Confirmation)
+
+export default ConfirmationScreen;
 
 const styles = StyleSheet.create({
   container: {

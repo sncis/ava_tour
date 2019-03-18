@@ -1,9 +1,23 @@
 import React, { Component } from 'react';
 import { StyleSheet, Text, View } from 'react-native';
+import { connect } from 'react-redux';
 import { Input } from 'react-native-elements';
+import { setFirstName, setLastName, setPhone, setEmail } from '../store/actions/actions';
 
 
-export default class DetailsInput extends Component {
+
+const mapDispatchToProps = (dispatch) => {
+  return{
+    // setUserDetails: (userDetails) => dispatch(setUserDetails(userDetails)),
+    setFirstname: (name) => dispatch(setFirstName(name)),
+    setLastname: (name) => dispatch(setLastName(name)),
+    setPhone: (phone) => dispatch(setPhone(phone)),
+    setMail: (mail) => dispatch(setEmail(mail)),
+  }
+}
+
+
+export class Details extends Component {
   constructor(props){
     super(props);
     this.state = {
@@ -14,31 +28,32 @@ export default class DetailsInput extends Component {
     }
   }
 
-  setText = (text, type) => {
-    if(type === 'firstname'){
-      this.setState({
-        firstname: text
-      })
-      console.log(this.state)
+  // setFirstname = (firstname) => {
+  //   this.setState({
+  //     firstname: firstname
+  //   })
+  // }
 
-    }
-    else if(type === 'lastname'){
-      this.setState({
-        firstname: text
-      })
-    }
-    else if(type === 'email'){
-      this.setState({
-        firstname: text
-      })
-    }
-    else if(type === 'phone'){
-      this.setState({
-        firstname: text
-      })
-    }
-    console.log(this.state)
-  }
+  // setLastname = (lastname) => {
+  //   this.setState({
+  //     lastname: lastname
+  //   })
+  // }
+
+  // setMail = (mail) => {
+  //   console.log(mail)
+  //   this.setState({
+  //     email: mail
+  //   })
+  //   console.log(this.state)
+  // }
+  // setPhone = (phone) => {
+  //   this.setState({
+  //     phone: phone
+  //   })
+  // }
+
+
   render() {
     return(
       <View style={styles.container}>
@@ -48,8 +63,8 @@ export default class DetailsInput extends Component {
             // errorStyle={{color: 'red'}}
             inputStyle={styles.inputText}
             inputContainerStyle={styles.inputContainerStyle}
-            // onChangeText={(text) => this.setText(text, 'firstname')}
-            onSubmitEditing={(text) => this.setText(text, 'firstname')}
+            onChangeText={(name) => this.props.setFirstname(name)}
+            // onSubmitEditing={(text) => this.setText(text, 'firstname')}
           />
           <Input
             placeholder='Last Name'
@@ -57,8 +72,8 @@ export default class DetailsInput extends Component {
             // errorStyle={{color: 'red'}}
             inputStyle={styles.inputText}
             inputContainerStyle={styles.inputContainerStyle}
-            // onChangeText={(text) => this.setText(text, 'firstname')}
-            onSubmitEditing={(text) => this.setText(text, 'lastname')}
+            onChangeText={(name) => this.props.setLastname(name)}
+            // onSubmitEditing={(text) => this.setText(text, 'lastname')}
           />
           <Input
             placeholder='Email Address'
@@ -66,8 +81,8 @@ export default class DetailsInput extends Component {
             // errorStyle={{color: 'red'}}
             inputStyle={styles.inputText}
             inputContainerStyle={styles.inputContainerStyle}
-            // onChangeText={(text) => this.setText(text, 'firstname')}
-            onSubmitEditing={(text) => this.setText(text, 'email')}
+            onChangeText={(mail) => this.props.setMail(mail)}
+            // onSubmitEditing={(text) => this.setText(text, 'email')}
           />
           <Input
           placeholder='Phone Number'
@@ -75,13 +90,17 @@ export default class DetailsInput extends Component {
           // errorStyle={{color: 'red'}}
           inputStyle={styles.inputText}
           inputContainerStyle={styles.inputContainerStyle}
-          // onChangeText={(text) => this.setText(text, 'firstname')}
-          onSubmitEditing={(text) => this.setText(text, 'phonenumber')}
+          onChangeText={(phone) => this.props.setPhone(phone)}
+          // onSubmitEditing={(text) => this.setText(text, 'phonenumber')}
           />
     </View>
     )
   }
 }
+
+const DetailsInput = connect(null, mapDispatchToProps)(Details);
+
+export default DetailsInput;
 
 const styles = StyleSheet.create({
   container: {

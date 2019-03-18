@@ -1,23 +1,37 @@
 import React, { Component } from 'react';
 import {View,Image, Text, StyleSheet, TouchableOpacity, ScrollView } from 'react-native';
+import { connect } from 'react-redux';
 import AvatarComponent from '../components/AvatarComponent';
 import MainButton from '../components/MainButton';
 import dbInstance from '../database/Database';
 import PaymentFormVisa from '../components/PaymentFormVisa';
 import PaymentGpay from '../components/PaymentGpay';
 import DetailsInput from '../components/DetailsInput';
+import store from '../store/store/store';
 
 
-export default class PaymentScreen extends Component {
+
+const mapDispatchToProps = (dispatch) => {
+  return {
+
+  }
+}
+
+const mapStateToProps = (state) => {
+  return{
+    currentTourName: state.selectedTourName
+  }
+}
+export class PaymentScreenElement extends Component {
   constructor(props){
     super(props);
     this.state = {
-      currentRoute : dbInstance.getCurrentRouteName(),
       paymentMethode: ''
     }
   }
 
   render() {
+    console.log(store.getState())
     return(
       <ScrollView style={styles.paymentContainer}>
         <AvatarComponent text='Perfect! Only the payment is left.'/>
@@ -55,6 +69,10 @@ export default class PaymentScreen extends Component {
     )
   }
 }
+
+const PaymentScreen = connect(mapStateToProps, mapDispatchToProps)(PaymentScreenElement)
+export default PaymentScreen;
+
 
 const styles = StyleSheet.create({
   paymentContainer: {

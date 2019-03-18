@@ -1,21 +1,33 @@
 import React, { Component } from 'react';
 import { View, Text, Image, StyleSheet, TouchableOpacity } from 'react-native';
+import { connect } from 'react-redux';
+
 import { Rating } from 'react-native-elements';
+
+import { setSelectedTourName} from '../store/actions/actions';
 import dbInstance from '../database/Database';
 
 
 // require("../assets/images/robot-dev.png")
 // uri: image const image = 'https://source.unsplash.com/600x400/?munich';
+const mapDispatchToProps = (dispatch) => {
+  return{
+    setSelectedTour : (tourname) => dispatch(setSelectedTourName(tourname))
+  }
+}
 
-export default class TourPreviewListItem extends Component {
+
+export class TourPreviewListElement extends Component {
 
   onTourSelect(tourName){
-    dbInstance.setCurrentRouteName(tourName);
+    this.props.setSelectedTour(tourName)
+    // dbInstance.setCurrentRouteName(tourName);
     return this.props.navigateToTourDetails();
   }
 
   render() {
     return(
+      
       <TouchableOpacity title="" onPress={() => this.onTourSelect(this.props.headline)} style={styles.touchContainer}>   
         <Image source={require("../assets/images/munich.jpg")} style={styles.tourPreviewImage}></Image>
         <View style={styles.textContainer}>
@@ -35,6 +47,10 @@ export default class TourPreviewListItem extends Component {
     );
   };
 };
+
+const TourPreviewListItem = connect(null, mapDispatchToProps)(TourPreviewListElement)
+
+export default TourPreviewListItem
 
 const styles = StyleSheet.create({
   touchContainer: {
