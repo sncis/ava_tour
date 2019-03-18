@@ -1,4 +1,14 @@
 export const SET_PREFERENCES = "SET_PREFERENCES";
 export const CLEAR_PREFERENCES = "CLEAR_PREFERENCES";
 export const SET_TOURS = "SET_TOURS";
-
+export const SET_SELECTED_TOUR = "SET_SELECTED_TOUR";
+export const SET_ROUTE_CONTENT ="SET_ROUTE_CONTENT";
+export const SET_USER_DETAILS = "SET_USER_DETAILS";
+export const SET_PICKUP_DETAILS = "SET_PICKUP_DETAILS";
+export const SET_FIRSTNAME = "SET_FIRSTNAME";
+export const SET_LASTNAME = "SET_LASTNAM";
+export const SET_EMAIL = "SET_EMAIL";
+export const SET_PHONE_NUM = "SET_PHONE_NUM";
+export const SET_LOCATION ="SET_LOCATION";
+export const SET_PEOPLE = "SET_PEOPLE";
+export const SET_EXITER ="SET_EXITER";

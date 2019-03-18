@@ -1,38 +1,55 @@
 import React, { Component } from 'react';
 import {View, Text, StyleSheet, Dimensions } from 'react-native';
+import { connect } from 'react-redux';
 import DatePicker from 'react-native-datepicker';
 import { Input } from 'react-native-elements';
+import { setPickUpDetails, setLocation, setPeople, setExiter } from '../store/actions/actions';
+import MainButton from './MainButton';
+
+import store from '../store/store/store';
 
 
+const mapDispatchToProps = (dispatch) => {
+  return{
+    setPickUp: (pickUpDetails) => dispatch(setPickUpDetails(pickUpDetails)),
+    setLocation: (location) => dispatch(setLocation(location)),
+    setPeople: (people) => dispatch(setPeople(people)),
+    setExiter: (text) => dispatch(setExiter(text)),
+    setDate: (date) => dispatch(setDate(date)),
+    setTime: (time) => dispatch(setTime(time)),
+  }
+}
 
-export default class PickUpForm extends Component {
+const mapStateToProps = (state) => {
+  return{
+    time: state.startTime,
+    date: state.startDate
+  }
+}
+
+export class PickUpFormElement extends Component {
   constructor(props){
     super(props);
     this.state= {
       date: new Date(),
-      time: new Date(),
-      text: ''
+      time: '',
+      location: '',
+      people: '',
+      exiter: '',
     }
   }
 
-  onDateChange = (date) =>{
-    console.log(date)
+  onDateChange = (date) => {
     this.setState({
       date: date
     })
   }
-  onTimeChange = (time) =>{
+
+  onTimeChange = (time) => {
     this.setState({
       time: time
     })
   }
-  setText = (text) =>{
-    this.setState({
-      text: text
-    })
-    console.log(`state ${this.state.text}`)
-  }
-
 
   render(){
     return(
@@ -52,7 +69,7 @@ export default class PickUpForm extends Component {
           />
           <DatePicker
             style={{...styles.datePicker, borderRadius: 10, borderWidth: 1, borderColor: '#bdc3c7', overflow: 'hidden'}}
-            date={this.state.time}
+            date={this.props.time}
             mode='time'
             format='HH:mm'
             onDateChange={(time) => this.onTimeChange(time)}
@@ -72,8 +89,8 @@ export default class PickUpForm extends Component {
             // errorStyle={{color: 'red'}}
             inputStyle={styles.inputText}
             inputContainerStyle={styles.inputContainerStyle}
-            onChangeText={(text) => this.setText(text)}
-            onSubmitEditing={(text) =>this.setText(text)}
+            onChangeText={(location) => this.props.setLocation(location)}
+            // onSubmitEditing={(location) =>this.onLocationSet(location)}
           />
           <Text style={styles.text}>For how any people?</Text>
           <Input
@@ -82,8 +99,8 @@ export default class PickUpForm extends Component {
             // errorStyle={{color: 'red'}}
             inputStyle={styles.inputText}
             inputContainerStyle={styles.inputContainerStyle}
-            onChangeText={(text) => this.setText(text)}
-            onSubmitEditing={(text) =>this.setText(text)}
+            onChangeText={(people) => this.props.setPeople(people)}
+            // onSubmitEditing={(people) => this.onPeopleSet(people)}
           />
           <Text style={styles.text}>How could we excite you?</Text>
           <Input
@@ -92,16 +109,24 @@ export default class PickUpForm extends Component {
             // errorStyle={{color: 'red'}}
             inputStyle={styles.inputText}
             inputContainerStyle={styles.inputContainerStyle}
-            onChangeText={(text) => this.setText(text)}
-            onSubmitEditing={(text) =>this.setText(text)}
+            onChangeText={(text) => this.props.setExiter(text)}
+            // onSubmitEditing={(text) => this.onExiterSet(text)}
           />
         </View>
+
 
       </View>
     )
   }
 
 }
+
+
+const PickUpForm = connect(mapStateToProps,mapDispatchToProps)(PickUpFormElement);
+
+export default PickUpForm;
+
+
 
 const styles = StyleSheet.create({
   formSection: {
@@ -137,6 +162,7 @@ const styles = StyleSheet.create({
     fontSize: 16,
     fontWeight: '100',
 
-  }
+  },
+
 
 })
