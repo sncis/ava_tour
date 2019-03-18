@@ -5,6 +5,8 @@ import PreviewHeaderImageComponent from './PreviewHeaderImageComponent';
 import dbInstance from '../database/Database';
 import MainButton from './MainButton';
 
+import store from '../store/store/store'
+
 export default class TourDetail extends Component {
   constructor(props){
     super(props);
@@ -27,6 +29,8 @@ export default class TourDetail extends Component {
   }; 
 
   render() {
+    console.log(store.getState())
+
     return(
       <View style={styles.page}>
         <ScrollView style={styles.scrollContainer}> 

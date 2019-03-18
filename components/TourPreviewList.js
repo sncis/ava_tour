@@ -1,6 +1,9 @@
 import React from 'react';
 import uuidv1 from "uuid";
 import TourPreviewListItem from './TourPreviewListItem';
+import { connect } from 'react-redux';
+import {Text} from 'react-native';
+import { getRecommendedTours } from '../store/actions/actions';
 import dbInstance  from '../database/Database';
 
 
@@ -9,30 +12,40 @@ generateRandomNumer = () => {
   return ratingNum;
 }
 
-export default class TourPreviewList extends React.Component {
+const mapDispatchToProps = dispatch => {
+  return{
+    getToures: () => dispatch(getRecommendedTours()),
+  }
+}
+
+const mapStateToProp = (state) => {
+  return {
+    tours: state.recommendedTourNames
+  }
+}
+
+export class TourPreview extends React.Component {
   constructor(props){
     super(props)
   }
 
-  createRoutes(){
-    let routes = dbInstance.getAllTours('munic');
-    let result= [];
-    routes.forEach(tour => {
-      result.push(
-        <TourPreviewListItem 
+  componentWillMount = () => {
+   this.props.getToures();
+  }
+
+  createRoutes = () => (
+    this.props.tours.map(tour => {
+    return(
+      <TourPreviewListItem 
         navigateToTourDetails= {this.props.goToTourDetails} 
         headline={tour.routeName} 
         duration={tour.duration} 
         price={tour.price} 
         rating={tour.rating} 
         ratingNum={this.generateRandomNumer} 
-        key={uuidv1()} />
-
-      )
-    });
-    return result;
-    
-  }
+        key={uuidv1()} />)
+    })
+  )
 
   render() {
     return(
@@ -41,3 +54,8 @@ export default class TourPreviewList extends React.Component {
   }
   
 }
+
+
+const TourPreviewList = connect(mapStateToProp,mapDispatchToProps)(TourPreview);
+
+export default TourPreviewList;

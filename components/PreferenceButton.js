@@ -1,7 +1,6 @@
 import React, { Component } from 'react';
 import { StyleSheet, Text, View, TouchableOpacity, Dimensions, Image } from 'react-native';
 
-
 export default class PreferenceButton extends Component {
   constructor(props){
     super(props);
@@ -10,7 +9,6 @@ export default class PreferenceButton extends Component {
     }
   }
 
-  
   toogleSelectionChange = () => {
     const { handelPreferenceChange, preferenceName } = this.props;
     this.setState(({selected}) => ({
@@ -20,14 +18,20 @@ export default class PreferenceButton extends Component {
   }
 
   render(){
+    
     const image = `require("../assets/images/${this.props.preferenceName}_icon.png")`
-    console.log(image)
+    // const image = `../assets/images/${this.props.preferenceName}_icon.png`
+
+    // let image;
+    // console.log(image)
     return(
       <TouchableOpacity 
         style={this.state.selected ? styles.buttonSelected : styles.buttonUnselected}
         onPress={() => this.toogleSelectionChange()}>
         <View style={styles.iconWrapper}>
-          <Image source={image} style={styles.icon}/>
+          {/* <Image source={{ image }} style={styles.icon}/> */}
+          <Image source={{ uri: "../assets/images/History_icon.png"}} style={styles.icon}/>
+
           <Text style={this.state.selected ? styles.buttonTextSelected : styles.buttonTextUnselected}>{this.props.preferenceName}</Text>
         </View>
      </TouchableOpacity> 
