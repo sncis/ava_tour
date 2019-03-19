@@ -1,7 +1,16 @@
 import React, { Component } from 'react';
+import {connect} from 'react-redux';
 import { StyleSheet, Text, View, TouchableOpacity, Dimensions, Image } from 'react-native';
 
-export default class PreferenceButton extends Component {
+
+const mapStateToProps= (state) => {
+  return{
+    unselect: state.unselectAll,
+  }
+}
+
+
+export class PreferenceBut extends Component {
   constructor(props){
     super(props);
     this.state={
@@ -18,27 +27,27 @@ export default class PreferenceButton extends Component {
   }
 
   render(){
-    
     const image = `require("../assets/images/${this.props.preferenceName}_icon.png")`
-    // const image = `../assets/images/${this.props.preferenceName}_icon.png`
-
-    // let image;
-    // console.log(image)
     return(
       <TouchableOpacity 
-        style={this.state.selected ? styles.buttonSelected : styles.buttonUnselected}
+        style={!this.state.selected || this.props.unselect ? styles.buttonUnselected : styles.buttonSelected}
         onPress={() => this.toogleSelectionChange()}>
         <View style={styles.iconWrapper}>
           {/* <Image source={{ image }} style={styles.icon}/> */}
           <Image source={require("../assets/images/History_icon.png")} style={styles.icon}/>
 
-          <Text style={this.state.selected ? styles.buttonTextSelected : styles.buttonTextUnselected}>{this.props.preferenceName}</Text>
+          <Text style={!this.state.selected || this.props.unselect ? styles.buttonUnselected : styles.buttonSelected}>{this.props.preferenceName}</Text>
         </View>
      </TouchableOpacity> 
 
     )
   }
 };
+
+
+const PreferenceButton = connect(mapStateToProps, null)(PreferenceBut)
+
+export default PreferenceButton
 
 const styles= StyleSheet.create({
   iconWrapper:{
@@ -48,7 +57,7 @@ const styles= StyleSheet.create({
     alignItems: 'center',
   },
   buttonUnselected:{
-    backgroundColor:'lightgrey',
+    backgroundColor:'#C4C4C4',
     margin: '3%',
     // padding: '10%',
     width: '25%',
@@ -62,7 +71,7 @@ const styles= StyleSheet.create({
     elevation:10,
   },
   buttonSelected: {
-    backgroundColor:'blue',
+    backgroundColor:'#353B50',
     margin: '3%',
     // padding: '10%',
     width: '25%',

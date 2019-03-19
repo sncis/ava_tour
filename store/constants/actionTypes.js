@@ -12,3 +12,5 @@ export const SET_PHONE_NUM = "SET_PHONE_NUM";
 export const SET_LOCATION ="SET_LOCATION";
 export const SET_PEOPLE = "SET_PEOPLE";
 export const SET_EXITER ="SET_EXITER";
+export const  ACTIVATE_SHOW_TOURS_BUTTON = " ACTIVATE_SHOW_TOURS_BUTTON";
+export const UNSELECT_ALL = "UNSELECT_ALL";
