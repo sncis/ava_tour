@@ -1,6 +1,5 @@
 import React, { Component } from 'react';
 import { GOOGLE_API_KEY  } from '../constants/ApiKeys';
-import autobind from 'class-autobind';
 import axios from 'axios';
 
 export class CurrentGps{
@@ -87,8 +86,8 @@ export const resolveGPoiData = (poi)=>{
     // look for nearby search poiname in close to latLon
     const resolveWithPoiAndLatLon = (poi)=>{
         if(!poi.poiName){
-            console.log("\n%%%%%%custom poi:");
-            console.log(poi);
+            //console.log("\n%%%%%%custom poi:");
+            //console.log(poi);
             
         }
         if(poi.placeId ){
@@ -176,14 +175,18 @@ export const resolveGPoiData = (poi)=>{
         console.log("##########reslovePlaceId poiName = "+poi.poiName);
         
         if(!poi.placeId){
-            console.log("%%%%%%%%%%%%%%%%%%");
-            console.log(poi);
+            //console.log("%%%%%%%%%%%%%%%%%%");
+            //console.log(poi);
             
             return createResultPromise("resolveGPoiData: missing place id in poi",false);
         }
         const url = `https://maps.googleapis.com/maps/api/place/details/json?placeid=${poi.placeId}&key=${GOOGLE_API_KEY}`;
         return apiGet(url, (response)=>{
             if(response.data){
+                console.log("\n===============############");
+                
+                console.log(response.data);
+                
                 poi.poiData = response.data;
                 return poi;
             }

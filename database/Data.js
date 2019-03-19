@@ -442,7 +442,7 @@ export class StateSource{
                 try {
                     // execute callback
                     let callback = this.listener.get({compRef});
-                    console.log("\n##StateSource#propagate "+sourceState+" to "+ref.current);
+                    //console.log("\n##StateSource#propagate "+sourceState+" to "+ref.current);
                     callback(sourceState);
                 } catch (error) {
                     // fall through

@@ -241,6 +241,7 @@ hardcodedPois(){
     }
     
     
+    
     // needs citi name for future use
     // returns array of map entries with given keys
     // routeName,PoiName,poiLocation,poiBriefDescription,poiDescription,poiImageUrl
