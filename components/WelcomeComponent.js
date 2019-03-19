@@ -2,6 +2,7 @@ import React, { Component }from 'react';
 import { StyleSheet , View, Button, Text, Image, ImageBackground } from 'react-native';
 
 export default class WelcomeComponent extends Component {
+  
   render(){
     return(
     <ImageBackground source={require("../assets/images/welcome_background.png")} 

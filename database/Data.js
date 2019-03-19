@@ -31,7 +31,7 @@ export class Poi{
      * */
      constructor(poiName,latLon,usersText,briefDesc,descr,poiImageUrl,meanStayTimeInSecs){
        
-       autobind(this);
+       //autobind(this);
        //console.log("POI::param poiname="+poiName);
        
        //console.log("\Poi paramter\n");
@@ -58,7 +58,7 @@ export class Poi{
      * if it is null so current location is used
      * @param {string} latLon like '48.1234,-10.1234'
      */
-    updateFromLocation(latLon){
+    updateFromLocation =(latLon)=>{
         this.poiName=null;
         this.usersText=null;
         this.briefDesc=this.descr="";
@@ -95,7 +95,7 @@ export class Poi{
      * if it is unknown so error state is set
      * @param {string} userText like 'marienplatz, munic'
      */
-    updateFromUserTextPromise(userText ){
+    updateFromUserTextPromise= (userText )=>{
         this.poiName=null;
             this.usersText=userText;
             this.briefDesc=this.descr="";
@@ -117,7 +117,7 @@ export class Poi{
      * returns promis for fetching poi data
      * @param {callback} onInitDone onInitDone(thisInstance, error) error in any 
      */
-    createPoiInitPromise(onInitDone){
+    createPoiInitPromise= (onInitDone)=>{
 
         return new Promise((resolve,reject)=>{
             resolveGPoiData(this)
@@ -143,28 +143,28 @@ export class Poi{
 
     // get the arrival time of this poi in seconds since 1.1.1970
     
-    getStayTimeinSeconds(){
+    getStayTimeinSeconds= ()=>{
         return this.meanStay;
     }
 
-    getPhoneNumber(){
+    getPhoneNumber=()=>{
         return this.poiData.formatted_address;
     }
-    getPlaceId(){
+    getPlaceId= ()=>{
         //console.log(this);
         return this.placeId;
     }
-    getGoogleRating(){
+    getGoogleRating=()=>{
         return this.poiData.rating;
     }
-    getGoogleRatingsTotal(){
+    getGoogleRatingsTotal=()=>{
         return this.poiData.user_ratings_total;
     }
-    getWebsite(){
+    getWebsite=()=>{
         return this.poiData.website;
     }
     // return array with photos - urls, if any empty array otherwise
-    getPhotos(){
+    getPhotos=()=>{
         var result = [];
         this.poiData.photos.forEach(photoDescription => {
             result.push(
@@ -173,11 +173,11 @@ export class Poi{
         });
         return result;    
     }
-    getVicinity(){
+    getVicinity=()=>{
         return this.poiData.vicinity;
     }
 
-    getResponedLatLon(){
+    getResponedLatLon=()=>{
         var lon = this.poiData.geometry.location.lon;
         var lat = this.poiData.geometry.location.lat;
         return lat+','+lon;
@@ -226,7 +226,7 @@ export class TourHop {
     distanceToNextT ="";
 
     constructor(poiMap, routePlaceIds){
-        autobind(this);
+       // autobind(this);
         this.startPoi = poiMap.get(routePlaceIds.shift());
         this.stayTime = this.startPoi.getStartTime();
         if(routePlaceIds.length>0){
@@ -234,11 +234,11 @@ export class TourHop {
         }
     }
 
-    createUpdatePromises(promiseList, startUnixSeconds){
+    createUpdatePromises=(promiseList, startUnixSeconds)=>{
         this.arrivalTime = startUnixSeconds;
         _createUpdatePromises(promiseList);
     }
-    _createUpdatePromises(promiseList){
+    _createUpdatePromises=(promiseList)=>{
         this.departureTime = this.arrivalTime+this.stayTime;
         promiseList.push(new Promise((resolve,reject)=>{
             this.gRoutes.createBetweenTwoPlaceIdsA(
@@ -260,7 +260,7 @@ export class TourHop {
             _createUpdatePromises(promiseList);
         }
     }
-    _finishUpdate(gRoutes){
+    _finishUpdate=(gRoutes)=>{
         this.distanceToNext = gRoutes.getRouteDistance();
         this.travelTime = gRoutes.getRouteTravelDuration();
         this.arrivalTimeT= new Date(arrivalTime*1000).toTimeString();
@@ -274,7 +274,7 @@ export class TourHop {
      * @param {like unix timestamp, bus only seconds} startUnixSeconds 
      * @param {function} onDoneCallback call onDoneCallback(this)
      */
-    update(startUnixSeconds,onDoneCallback){
+    update=(startUnixSeconds,onDoneCallback)=>{
         this.arrivalTime = startUnixSeconds;
         this.departureTime = arrivalTime+stayTime;
         const gRoutes = new GRoutes();
@@ -336,7 +336,7 @@ export class Tour{
      * @param {bool} optimize 
      * @param {callback called at the end, one parameter tour} onDoneCallback 
      */
-    calculateTour(optimize){
+    calculateTour=(optimize)=>{
         if(!this.tourPoiPlaceIds){
             // create some 
             this.tourPoiPlaceIds = [];
@@ -428,16 +428,14 @@ export class StateSource{
     stateToPropagate = null;
 
     
-    constructor(){
-        autobind(this);
-    }
+    
     /**
      *  call this, when instancee has changed the state,
      *  all registered listeners will be notified.
      * (they have to be alive and visible)
      * @param {Object} sourceState is this changed State 
      */
-    fireStateChange(sourceState){
+    fireStateChange=(sourceState)=>{
         this.stateToPropagate = sourceState;
         let toRemove =[];
         for( ref in this.listener.keys){
@@ -466,7 +464,7 @@ export class StateSource{
      * @param {function } stateChangeCallback with one parameter, that is describing the state
      * @see fireStateChange 
      */
-    addListener(component,stateChangeCallback){
+    addListener=(component,stateChangeCallback)=>{
         const compRef = React.createRef(component);
         listener.set(compRef,stateChangeCallback);
         if(this.stateToPropagate){
