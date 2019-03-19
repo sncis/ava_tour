@@ -30,7 +30,7 @@ export default class PreferenceButton extends Component {
         onPress={() => this.toogleSelectionChange()}>
         <View style={styles.iconWrapper}>
           {/* <Image source={{ image }} style={styles.icon}/> */}
-          <Image source={{ uri: "../assets/images/History_icon.png"}} style={styles.icon}/>
+          <Image source={require("../assets/images/History_icon.png")} style={styles.icon}/>
 
           <Text style={this.state.selected ? styles.buttonTextSelected : styles.buttonTextUnselected}>{this.props.preferenceName}</Text>
         </View>
@@ -49,9 +49,10 @@ const styles= StyleSheet.create({
   },
   buttonUnselected:{
     backgroundColor:'lightgrey',
-    margin: 20,
-    padding: 10,
-    width: Dimensions.get('window').width /2 - 40,
+    margin: '3%',
+    // padding: '10%',
+    width: '25%',
+    aspectRatio: 2 /2,
     borderRadius: 3,
     alignItems: 'center',
     shadowColor: 'grey',
@@ -62,28 +63,34 @@ const styles= StyleSheet.create({
   },
   buttonSelected: {
     backgroundColor:'blue',
-    margin: 20,
-    padding: 10,
-    width: Dimensions.get('window').width /2 - 40,
-    alignItems: 'center',
+    margin: '3%',
+    // padding: '10%',
+    width: '25%',
+    aspectRatio: 2 /2,
     borderRadius: 3,
+    alignItems: 'center',
     shadowColor: 'grey',
-    shadowOffset: { width: 1, height: 1 },
+    shadowOffset: { width: 2, height: 2 },
     shadowOpacity: 11,
     shadowRadius: 1,
     elevation:10,
    
   },
   icon: {
-    width: 40,
-    height: 40,
-    marginBottom: 5,
+    width: 45,
+    height: 45,
+    marginTop: '15%',
+    marginBottom: '10%',
     resizeMode: 'contain'
   },
   buttonTextUselected: {
-    textAlign: 'center'
+    textAlign: 'center',
+    fontWeight: 'bold'
+    // fontSize: 12,
   },
   buttonTextSelected: {
-    color: "white"
+    color: "white",
+    textAlign: 'center',
+    fontWeight: 'bold'
   }
 })

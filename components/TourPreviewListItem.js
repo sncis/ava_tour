@@ -28,14 +28,19 @@ export class TourPreviewListElement extends Component {
   render() {
     return(
       
-      <TouchableOpacity title="" onPress={() => this.onTourSelect(this.props.headline)} style={styles.touchContainer}>   
-        <Image source={require("../assets/images/munich.jpg")} style={styles.tourPreviewImage}></Image>
+      <TouchableOpacity title="" onPress={() => this.onTourSelect(this.props.headline)} style={styles.touchContainer}> 
+        <View style={styles.imageContainer}> 
+          <Image source={require("../assets/images/munich.jpg")} style={styles.tourPreviewImage}></Image>
+
+        </View>  
         <View style={styles.textContainer}>
           <Text style={styles.tourHeadline}>{this.props.headline}</Text>
+          <Text style={styles.descriptiontext}>small description of text</Text>
+
           <Text style={styles.smallTextDuration}>{this.props.duration}</Text>
           <Text style={styles.smallText}>{this.props.price}</Text>
           <View style={styles.ratingContainer}>
-            <Text style={styles.rating}>{this.props.rating}</Text>
+            {/* <Text style={styles.rating}>{this.props.rating}</Text> */}
             <Rating style={styles.star}
               imageSize={20}
               readonly
@@ -54,36 +59,52 @@ export default TourPreviewListItem
 
 const styles = StyleSheet.create({
   touchContainer: {
-    flexDirection: 'row',
+    flexDirection: 'column',
     justifyContent: 'flex-start',
     backgroundColor:'white',
-    marginTop: 7,
+    margin: 7,
     marginLeft:15,
     marginRight:15,
-    shadowColor: 'grey',
-    shadowOffset: { width: 0, height: 0 },
-    shadowOpacity: 0.5,
-    shadowRadius: 2,
     borderRadius: 5,
+    shadowColor: 'grey',
+    shadowOffset: { width: 0, height: 0},
+    shadowOpacity: 0.8,
+    shadowRadius: 3,
+    elevation:10,
   },
+
   textContainer: {
     flex: 1,
     flexDirection: 'column',
-    // flexWrap: 'wrap',
-    padding: 10,
+    padding: 15,
+    backgroundColor: 'white',
+    shadowColor: "#FFFFFF",
+    shadowOffset: { width: 0, height: -30},
+    shadowOpacity: 1,
+    shadowRadius: 10,
+    elevation:14,
+    // borderRadius: 5,
+
   },
   tourHeadline: {
     flex: 1,
     flexWrap: 'wrap',
     color: 'black',
-    fontWeight: '400',
+    fontWeight: 'bold',
     fontSize: 16,
     marginBottom: 0,
+  },
+  descriptiontext: {
+    fontWeight: '400',
+    fontSize: 16,
+    marginBottom: 4
+
+
   },
   smallText: {
     color: 'black',
     fontWeight: '100',
-    fontSize: 12,
+    fontSize: 16,
   },
   smallTextDuration: {
     color: 'black',
@@ -91,19 +112,22 @@ const styles = StyleSheet.create({
     fontSize: 12,
     marginBottom: 10,
   },
+  imageContainer: {
+    borderRadius: 5,
+    overflow : 'hidden'
+
+  },
   tourPreviewImage: {
-    flex: 1,
-    overflow: 'hidden',
-    width: 5,
-    height: 150,
+    flex: 2,
+    width: '100%',
+    height: 300,
     resizeMode: 'cover',
-    overflow: 'hidden'
-    
+        
   },
   ratingContainer: {
     flexDirection: 'row',
     alignItems: 'flex-start',
-    justifyContent: 'center',
+    // justifyContent: 'center',
   },
   rating:{
     marginTop: 10,
@@ -114,7 +138,9 @@ const styles = StyleSheet.create({
     fontSize: 12
   },
   star: {
-    height:10
+    height:'5%',
+    marginTop: 10,
+    marginBottom: 15,
   }
 
 });

@@ -86,12 +86,13 @@ export default PreferenceSelection;
 const styles= StyleSheet.create({
   preferenceContainer:{
     flexDirection: 'row',
-    flexWrap: 'wrap'
+    flexWrap: 'wrap',
+    justifyContent: 'center',
   },
   textSection:{
-    marginBottom:40,
+    marginBottom: '10%',
   },
   button: {
-    marginTop: 30,
+    marginTop: '20%',
   }
 })
