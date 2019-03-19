@@ -14,7 +14,7 @@ import { SET_PREFERENCES,
 
 } from '../constants/actionTypes';
 import store from '../store/store';
-import dbInstance from '../../database/Database';
+import dbInstance from '../../database/Database2';
 import { tour1 } from '../../data';
 import {generatePreferencedTours} from '../../database/TourGenerator';
 

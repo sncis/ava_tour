@@ -1,6 +1,4 @@
-
-
-//// hardCodedStuff
+/// hardCodedStuff
 export const hardcodedPoiDefs=()=>{
     
     return [
