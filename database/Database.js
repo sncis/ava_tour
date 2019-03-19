@@ -1,4 +1,3 @@
-
 class Database{
 
     ///////////// hard coded routes
@@ -293,5 +292,3 @@ hardcodedPois(){
 const dbInstance = new Database();
 
 export default dbInstance;
-    
-
