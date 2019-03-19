@@ -251,9 +251,7 @@ export const createRoute = (startTime,startPoint, endPoint,waypoints,optimized) 
  */
 export class GRoutes{
 
-    constructor(){
-        autobind(this);
-    }
+   
     data = null;
     // create asynchronious a route between start and andpoint and  
     // with waypoints in between, if any
@@ -261,7 +259,7 @@ export class GRoutes{
     // by drive duration
     // starttime is seconds since midnight, January 1, 1970 UTC
     // (way)points are latLon like '48.2344,10.3345'
-    create(startTime,startPoint, endPoint,waypoints,optimized){
+    create=(startTime,startPoint, endPoint,waypoints,optimized)=>{
         var wp = '';
         if(startTime ===null){
             startTime = 'now'
@@ -284,7 +282,7 @@ export class GRoutes{
         });
     };
     // creates a route between two locations defined by their placeIds
-    createBetweenTwoPlaceIds(startPlaceId, endPlaceId, atSecondsUnixTimeStamp,callback){
+    createBetweenTwoPlaceIds=(startPlaceId, endPlaceId, atSecondsUnixTimeStamp,callback)=>{
         const url = `https://maps.googleapis.com/maps/api/directions/json?departure_time=${atSecondsUnixTimeStamp}&origin=place_id:${startPlaceId}&destination=place_id:${endPlaceId}&key=${GOOGLE_API_KEY}`;
         return apiGet(url,(response)=>{
             this.data = response.data;
@@ -293,17 +291,17 @@ export class GRoutes{
     };
 
     // return the overall duration as text integer in seconds
-    getRouteTravelDuration(){
+    getRouteTravelDuration=()=>{
         return this.data.routes[0].legs[0].duration.value;
     }
     // return the overall distance as text integer in meters
-    getRouteDistance(){
+    getRouteDistance=()=>{
         return this.data.routes[0].legs[0].distance.value;
     }
     // return arrays with reordered waypoints, contains startPoint
     // at beginning and endPoint at the end
     // in the middle the route may be reordered
-    getRoutePlaceIdOrder(){
+    getRoutePlaceIdOrder=()=>{
         var result = [];
         this.serverResponds.data.geocoded_waypoints.forEach(place => {
             result.push(place.place_id);
@@ -311,7 +309,7 @@ export class GRoutes{
         return result;
     }
     // return coordinates for the route without waypoins
-    getSingleRoutePoints(){
+    getSingleRoutePoints=()=>{
         let points = Polyline.decode(this.serverResponds.data.routes[0].overview_polyline.points)
         let coords = points.map((point) => {
         return { 
