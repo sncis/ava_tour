@@ -248,7 +248,9 @@ Pasta, pizza, and wine. Price range: €10-€30."
 		ranking : 1,
 		poiImageUrl : "https://cdn.muenchen-p.de/.imaging/stk/responsive/galleryLarge/dms/shutterstock-2016/sehenswuerdigkeiten/muenchen-panorama/document/muenchen-panorama.jpg", 
 	},
-       {
+
+        {
+
            stayTime        : 90*60, 
            poiName         : 'BMW World',
            poiLocation     : "48.177016,11.5565994",
@@ -312,17 +314,6 @@ Pasta, pizza, and wine. Price range: €10-€30."
            poiBriefly      : "museum with three exhibition levels.",
            poiImageUrl     : "https://www.museen-in-bayern.de/uploads/tx_landesstelle/images/Bad_Toelz_Stadtmuseum_Bad_Toelz_Museumsphoto_Fassade.jpg"
        },
-       {
-        stayTime        : 80*60,//seconds
-        poiName         : 'PoiName', // field is used in Gapi, can be null
-        poiLocation     : "47.7606962,11.5580924", // used in api 
-        poiAdress       : "free text adressof poi", // will be used, 
-        poiDescription  : "The Stadtmuseum Bad Tölz presents a cross-section of the history of the Tölzer Land on three exhibition levels, with a history of more than 100 years.",
-        poiBriefly      : "museum with three exhibition levels.",
-        poiImageUrl     : "https://www.museen-in-bayern.de/uploads/tx_landesstelle/images/Bad_Toelz_Stadtmuseum_Bad_Toelz_Museumsphoto_Fassade.jpg",
-        poiType         : "Food",
-        ranking         : 4, // rank of this location wrt the type
-        
-    },
+       
    ];
 }
