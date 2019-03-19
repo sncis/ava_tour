@@ -92,19 +92,19 @@ export const resolveGPoiData = (poi)=>{
             
         }
         if(poi.placeId ){
-            return this.createResultPromise(poi,true);
+            return createResultPromise(poi,true);
         }
         if(poi.poiName){
             if(!poi.latLon){
                 // make poiname to user input
                 // inspect it later
                 poi.userInput = poi.poiName;
-                return this.createResultPromise(poi,true);
+                return createResultPromise(poi,true);
             }
             // fall through
         }else{
             // let inspect others
-            return this.createResultPromise(poi,true);
+            return createResultPromise(poi,true);
         }
         // we have latLon and popiName, use nearbysearch
         const url = `https://maps.googleapis.com/maps/api/place/nearbysearch/json?location=${poi.latLon}&radius=1500&name=${poi.poiName}&key=${GOOGLE_API_KEY}`; 
