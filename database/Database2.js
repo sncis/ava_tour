@@ -1,13 +1,6 @@
 
-import React, { Component } from 'react'
 import{hardcodedPoiDefs} from './PoiDef'
-import {
-  ActivityIndicator,
-  AppRegistry,
-  StyleSheet,
-  Text,
-  View,
-} from 'react-native';
+
 import {Poi,Tour,StateSource} from './Data';
 import {CurrentGps,getPlaceDetails, logError} from './GApi';
 class Database{
@@ -53,7 +46,7 @@ createPoiInitPromise(poiToInit){
     return poiToInit.createInitPromise(onPoiDone);
 }
 
-initPois(){
+initPois= ()=>{
     //console.log("\npois descriptions");
     //console.log(thizz.poiDefs);
     let poiPromises = [];
@@ -65,7 +58,7 @@ initPois(){
     //console.log(this.hardcodedPoiDefs());
     
     //console.log("\n=========================================");
-    const poiDefs = this.hardcodedPoiDefs();
+    const poiDefs = hardcodedPoiDefs();
     var i;
     const once = false; // just for testing
     for( i in poiDefs){
@@ -149,8 +142,8 @@ initToursPromises(){
      poiList = [];
      hourPrice = 60;
      
-     constructor(){
-        autobind(this);
+     constructor(){ 
+        
         console.log('\n starting init of pois');
         
         Promise.all(this.initPois())

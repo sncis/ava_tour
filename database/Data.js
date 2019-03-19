@@ -1,5 +1,4 @@
 import {CurrentGps,resolveGPoiData, GRoutes, createResultPromise} from './GApi';
-import autobind from 'class-autobind';
 
 import axios from 'axios';
 
@@ -464,7 +463,7 @@ export class StateSource{
      * @param {function } stateChangeCallback with one parameter, that is describing the state
      * @see fireStateChange 
      */
-    addListener=(component,stateChangeCallback)=>{
+    addListener(component,stateChangeCallback){
         const compRef = React.createRef(component);
         listener.set(compRef,stateChangeCallback);
         if(this.stateToPropagate){
