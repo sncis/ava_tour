@@ -1,4 +1,4 @@
-import {CurrentGps,resolveGPoiData, GRoutes, createResultPromise} from './GApi';
+import {CurrentGps,resolveGPoiData, GRoutes, createResultPromise, currentLatLonPromise} from './GApi';
 
 import axios from 'axios';
 
@@ -69,7 +69,7 @@ export class Poi{
                 resolve(poi)
                 return;
             }
-            new CurrentGps().currentPromise()
+            currentLatLonPromise()
             .then((latLon)=>{
                 poi.latLon= latLon;
                 resolve(poi);

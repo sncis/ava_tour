@@ -2,17 +2,39 @@ import React, { Component } from 'react';
 import { GOOGLE_API_KEY  } from '../constants/ApiKeys';
 import axios from 'axios';
 
-export class CurrentGps{
-    current(callback){
-        // implment this
-        callback("48.1373932,11.5732545");
-    }
-    currentPromise(){
-        return new Promise((resolve,reject)=>{
-            resolve("48.1373932,11.5732545");
-        });
-    }
 
+
+/**
+ * Fuction returning a Promise to a latitude, longitude 
+ * string like "48.1373932,11.5732545" -Marienplatz in Munic,
+ * if the geolocation is not supported on device ( emulator)
+ * so the latLon of marienplatz is returned
+ */
+export const currentLatLonPromise = ()=>{
+    if ("geolocation" in navigator) {
+    const geo_options = {
+        enableHighAccuracy: true, 
+        maximumAge        : 30000, 
+        timeout           : 27000
+        };
+    /* geolocation is available */
+    return new Promise((resolve,reject)=>{
+        navigator.geolocation.getCurrentPosition(
+            (pos)=>{
+                // position.coords.latitude, position.coords.longitude
+                resolve(pos.coords.latitude+","+pos.coords.longitude);
+            },
+            (er)=>{
+                reject(er);
+            },
+            geo_options
+            );
+    });
+    } else {
+    /* geolocation IS NOT available */
+    // marienplatz munic
+    return createResultPromise("48.1373932,11.5732545",true); 
+    }
 }
 
 
@@ -183,9 +205,9 @@ export const resolveGPoiData = (poi)=>{
         const url = `https://maps.googleapis.com/maps/api/place/details/json?placeid=${poi.placeId}&key=${GOOGLE_API_KEY}`;
         return apiGet(url, (response)=>{
             if(response.data){
-                console.log("\n===============############");
+                //console.log("\n===============############");
                 
-                console.log(response.data);
+                //console.log(response.data);
                 
                 poi.poiData = response.data;
                 return poi;
@@ -211,20 +233,47 @@ export const resolveGPoiData = (poi)=>{
 
 
 
+
+
 /**
- * Is creating a rote based on google API
- * If waypoints are not null, so they can be also optimized by setting
- * 'optimized' parameter to true
- * @param {insteger} startTime, like unix timestamp, but  second only
- * @param {string} startPoint latLon like '49.456,11.234' 
- * @param {string} endPoint same constrains like for startPoint
- * @param {list with latLon values} waypoints if not null a list with point values 
- * @param {boolean} optimized if true, so the route shold have waipoint. Only them can be otimized
+ * Promise:
+ * Is fetching the route, if respose status is ok,
+ * response.data is returned
+ * for docu see https://developers.google.com/maps/documentation/directions/intro
+ * @param {string} startPlaceId
+ * @param {string} endPlaceId
+ * @param {integer} atSecondsUnixTimeStamp 
+ * @param {boolean} isDepartureTime, if true, so depaprture time is used, avvival time otherwise
+ * @param {fuction} resultCallback with parameter response.data, if null, so response is returned
  */
-export const createRoute = (startTime,startPoint, endPoint,waypoints,optimized) =>{
-    let  wp = '';
-    startTime = startTime ? startTime: 'now';
-    if(waypoints){
+export const createRouteTwoPlaceIds= (startPlaceId, endPlaceId, atSecondsUnixTimeStamp, isDepartureTime)=>{
+    const timeSwitch = isDepartureTime ? "departure_time": "arrival_time";
+    const url = `https://maps.googleapis.com/maps/api/directions/json?${timeSwitch}=${atSecondsUnixTimeStamp}&origin=place_id:${startPlaceId}&destination=place_id:${endPlaceId}&key=${GOOGLE_API_KEY}`;
+    return apiGet(url,(response)=>{
+        return response.data;
+    });
+}
+
+
+/**
+ * Promise:
+ * is fetching route data between start and endpoints, waypoints, if any, are in between.
+ * if param optimized ist true, so 
+ * @param {integer} atSecondsUnixTimeStamp seconds since 1.1.1970, like unix timestamp
+ * @param {boolean} isDepartureTime, if true, so departure time, avvival time otherwise
+ * @param {string} startPlaceId, google place_id of start point
+ * @param {string} endPlaceId, google place_id of end point
+ * @param {array} waypointPlaceIds array of place ids: points between start and end point, may be null
+ * @param {bool} optimized if true waypoints are oprimized by google in default way
+ */
+export const createRoute = (atSecondsUnixTimeStamp, isDepartureTime,startPlaceId, endPlaceId,waypointPlaceIds,optimized)=>{
+    let wp = '';
+    if(!atSecondsUnixTimeStamp){
+        atSecondsUnixTimeStamp = 'now';
+        isDepartureTime = true;
+    }
+    const timeSwitch = isDepartureTime ? "departure_time": "arrival_time";
+    if(waypointPlaceIds){
         wp = '&waypoints=';
         var first = true;
         waypoints.forEach(element => {
@@ -233,16 +282,12 @@ export const createRoute = (startTime,startPoint, endPoint,waypoints,optimized) 
         });
         wp = wp + '&optimizeWaypoints=' +(optimized ? 'true':'false');
     }
-    const url = `https://maps.googleapis.com/maps/api/directions/json?departure_time=${startTime}&origin=${startPoint}&destination=${endPoint}${wp}`;
-    return apiGet(url,(response)=>{
-
+    const url = `https://maps.googleapis.com/maps/api/directions/json?${timeSwitch}=${atSecondsUnixTimeStamp}&origin=${startPlaceId}&destination=${endPlaceId}${wp}`;
+    return apiGet(url, (response)=>{
+        this.data = response.data;
+        return this;
     });
-};
-
-
-
-
-
+}
 
 /**
  * GRoutes is hiding google api
@@ -262,7 +307,7 @@ export class GRoutes{
     // by drive duration
     // starttime is seconds since midnight, January 1, 1970 UTC
     // (way)points are latLon like '48.2344,10.3345'
-    create=(startTime,startPoint, endPoint,waypoints,optimized)=>{
+    create2=(startTime,startPoint, endPoint,waypoints,optimized)=>{
         var wp = '';
         if(startTime ===null){
             startTime = 'now'
@@ -277,7 +322,7 @@ export class GRoutes{
             wp = wp + '&optimizeWaypoints=' +(optimized ? 'true':'false');
         }
         // https://maps.googleapis.com/maps/api/directions/json?origin=48.1373932,11.5732545&destination=48.0061613,11.2583466&key=${GOOGLE_API_KEY}
-        const url = `https://maps.googleapis.com/maps/api/directions/json?departure_time=${startTime}&origin=${startPoint}&destination=${endPoint}${wp}`;
+        const url = `https://maps.googleapis.com/maps/api/directions/json?departure_time=${startTime}&origin=${startPoint}&destination=${endPoint}${wp}&key=${GOOGLE_API_KEY}`;
         
         return apiGet(url, (response)=>{
             this.data = response.data;
@@ -285,7 +330,7 @@ export class GRoutes{
         });
     };
     // creates a route between two locations defined by their placeIds
-    createBetweenTwoPlaceIds=(startPlaceId, endPlaceId, atSecondsUnixTimeStamp,callback)=>{
+    createBetweenTwoPlaceIds2=(startPlaceId, endPlaceId, atSecondsUnixTimeStamp,callback)=>{
         const url = `https://maps.googleapis.com/maps/api/directions/json?departure_time=${atSecondsUnixTimeStamp}&origin=place_id:${startPlaceId}&destination=place_id:${endPlaceId}&key=${GOOGLE_API_KEY}`;
         return apiGet(url,(response)=>{
             this.data = response.data;

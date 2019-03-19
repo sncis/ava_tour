@@ -2,7 +2,7 @@
 import{hardcodedPoiDefs} from './PoiDef'
 
 import {Poi,Tour,StateSource} from './Data';
-import {CurrentGps,getPlaceDetails, logError} from './GApi';
+import {CurrentGps,getPlaceDetails, logError,currentLatLonPromise, createResultPromise} from './GApi';
 class Database{
 
 
@@ -45,6 +45,7 @@ createPoiInitPromise(poiToInit){
     });
     return poiToInit.createInitPromise(onPoiDone);
 }
+
 
 initPois= ()=>{
     //console.log("\npois descriptions");
@@ -143,14 +144,18 @@ initToursPromises(){
      hourPrice = 60;
      
      constructor(){ 
-        
+         
         console.log('\n starting init of pois');
         
         Promise.all(this.initPois())
         .then(Promise.all(this.initToursPromises()))
         .then(()=>{
             console.log('\n done init of pois\nstarting init of touts');
-            Promise.all(this.initToursPromises())
+
+            // Promise.all(this.initToursPromises())
+            console.log("hardcoded tour init is skipped\n generated will come");
+            return createResultPromise(true,true);
+            
         })
         .then(()=>{
             console.log('\n done init of tours');
@@ -160,7 +165,21 @@ initToursPromises(){
             console.log("############### Database Init error POIS/Tours");
             console.log(error);
             this.stateSource.fireStateChange(error);
-            return;
+        });
+        // try location
+        currentLatLonPromise()
+        .then((latLon)=>{
+            console.log("__________________________________\n");
+            console.log("currentLocation = "+latLon);
+            console.log("\n__________________________________\n");
+            
+            
+        }, (rejectedValue)=>{
+            console.log("__________________________________\n");
+            console.log("currentLocation = error");
+            console.log(rejectedValue);
+            console.log("\n__________________________________\n");
+            
         });
          
      }
@@ -168,6 +187,8 @@ initToursPromises(){
      
 
      /**
+      * DEPRECATED by now, Tours will be generated
+      * deivers empty 
       * bound to instance
       * return all aviable tours: getTours()
       */
@@ -175,6 +196,8 @@ initToursPromises(){
          return this.tourMap.values();
      }
      /**
+      * DEPRECATED by now, Tours will be generated
+      * deivers empty 
       * bound to instance
       * return a single tour by tourName: getTour(tourName)
       */
@@ -182,12 +205,17 @@ initToursPromises(){
          return this.tourMap.get(tourName);
      }
      /**
+      * DEPRECATED by now, Tours will be generated
+      * deivers empty 
       * bound to instance
       * return all aviable tour names : getTourNames()
       */
      getTourNames(){
         return this.tourMap.keys();
      }
+     /**
+      * return all aviable pois, keys are theirs placeIds
+      */
      getPoiMap(){
          return this.poiMap();
      }
