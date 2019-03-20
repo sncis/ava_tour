@@ -53,28 +53,18 @@ export const  logError= (customDescr,error)=>{
 /**
  * returns promise.
  * is performing get for url, then onResonse is inspecting 
- * the response
+ * the response, when response.data.status is not "OK", reject is called
  * @param {string} url get url
  * @param {funcion} transformResponse is transforming response, returned value will be resolved
  */
 export const apiGet = (url, transformResponse)=>{
     return new Promise(function(resolve,reject){
         axios.get(url)
-        .then(function(response){
-            //console.log("\\======apiPromiseGet======================\n url = "+url);
-            //console.log("\nresponse.status");
-            //console.log(response.status);
-            //console.log("\n json status = "+response.data.status);
+        .then(function(response){;
             if(response.status && response.data && response.data.status == 'OK'){
-            //    console.log("\n++ answer ok, will inspect JSON data\n");
-            //    console.log(response.data);
                 resolve(transformResponse ? transformResponse(response):response);
             }else{
-            //    console.log("\n-- answer negative, will return null:\response:\n\t");
-            //    console.log(response);
-            //    console.log('\nresponse.data = \n\t');
-            //    console.log(response.data);
-                resolve(response);
+                reject("apiGet: data status is not ok for url="+url);
             }
         })
         .catch(function(error){
@@ -100,34 +90,17 @@ export const createResultPromise=(resultValue, doResolve)=>{
     });
 }
 
+
 /**
- * creates a poi init Promise
+ * creates a poi init Promise deprecated
  * @param {Poi} poi is Poi to init
  */
-export const resolveGPoiData = (poi)=>{
-    // look for nearby search poiname in close to latLon
+ export const resolveGPoiData = (poi)=>{
+     /////////// definitions of helper methods
+     // look for nearby search poiname in close to latLon
     const resolveWithPoiAndLatLon = (poi)=>{
-        if(!poi.poiName){
-            //console.log("\n%%%%%%custom poi:");
-            //console.log(poi);
-            
-        }
-        if(poi.placeId ){
-            return createResultPromise(poi,true);
-        }
-        if(poi.poiName){
-            if(!poi.latLon){
-                // make poiname to user input
-                // inspect it later
-                poi.userInput = poi.poiName;
-                return createResultPromise(poi,true);
-            }
-            // fall through
-        }else{
-            // let inspect others
-            return createResultPromise(poi,true);
-        }
-        // we have latLon and popiName, use nearbysearch
+        // for sure there is poiName and latLon
+        // use nearbysearch
         const url = `https://maps.googleapis.com/maps/api/place/nearbysearch/json?location=${poi.latLon}&radius=1500&name=${poi.poiName}&key=${GOOGLE_API_KEY}`; 
         
         return new Promise((resolve,reject)=>{
@@ -141,53 +114,47 @@ export const resolveGPoiData = (poi)=>{
                     // we have placeId
                     poi.placeId = response.data.results[0].place_id;
                     console.log("+++poi-data from name/latLon name="+poi.poiName+" latlon="+poi.latLon+" placeID="+poi.placeId);
-                    
                     resolve(poi);
                 }else if(respStatus == "ZERO_RESULTS"){
-                    // poiname and latLon do not match
+                    // poiname and latLon do not lead in a good poi description
                     // try poiName as user input
                     poi.userInput= poi.poiName;
-                    resolve(poi);
+                    //try poi name as user input
+                    resolveWithUserInput(poi)
+                    .then(resolveWithPlaceId)
+                    .then(resolve);
                 }else{
                     // unknown answer
                     reject("unexpected answer from gApi: status = "+respStatus);
                 }
-
             });
         });  
     }
     // look if we get place id for users input
     const resolveWithUserInput = (poi) =>{
-        if(poi.placeId || !poi.userInput){
-            // pass through
-            return createResultPromise(poi,true);
-        }
+        // we have user input
         const url = `https://maps.googleapis.com/maps/api/place/findplacefromtext/json?input=${poi.userInput}&inputtype=textquery&key=${GOOGLE_API_KEY}`;
         return apiGet(url,(response)=>{
             
             if(response.data.candidates && response.data.candidates[0]){
                 poi.placeId = response.data.candidates[0].place_id;
                 console.log("+++poi-data from userInput name="+poi.poiName+" input="+poi.userInput+" placeID="+poi.placeId);
-                    
+            }else{
+                throw "Poi: place for  "+poi.userInput+" is unknown";
             }
             return poi;
         });
     }
     // look if we get place id for larLon only
     const resolveWithLatLon = (poi) =>{
-        let skip = poi.placeId!=null;
-        skip = skip || !poi.latLon;
         
-        
-        if(skip){
-            // pass through
-            return createResultPromise(poi,true);
-        }
         const url = `https://maps.googleapis.com/maps/api/geocode/json?latlng=${this.latLon}&key=${GOOGLE_API_KEY}`;
         return apiGet(url, (response)=>{
             if(response.data && response.data.results){
                 poi.placeId = response.data.results[0].place_id;
                 console.log("+++poi-data from latLon name="+poi.poiName+" latLon="+poi.latLon+" placeID="+poi.placeId);
+            }else{
+                throw "Poi: poin for latLon="+poi.latLon+ " is unknown";
             }
             return poi;
         });
@@ -197,18 +164,11 @@ export const resolveGPoiData = (poi)=>{
         console.log("##########reslovePlaceId poiName = "+poi.poiName);
         
         if(!poi.placeId){
-            //console.log("%%%%%%%%%%%%%%%%%%");
-            //console.log(poi);
-            
-            return createResultPromise("resolveGPoiData: missing place id in poi",false);
+            return createResultPromise("Poi:resolveGPoiData: missing place id in poi",false);
         }
         const url = `https://maps.googleapis.com/maps/api/place/details/json?placeid=${poi.placeId}&key=${GOOGLE_API_KEY}`;
         return apiGet(url, (response)=>{
             if(response.data){
-                //console.log("\n===============############");
-                
-                //console.log(response.data);
-                
                 poi.poiData = response.data;
                 return poi;
             }
@@ -218,12 +178,64 @@ export const resolveGPoiData = (poi)=>{
             throw e;
         });
     }
+    //////// end helper
+    //console.log("\n\POI_---------------");
+    //console.log(poi);
+    
+     // set the way how to resolve te Poi depending on
+     //the parameters
+     if(!poi.placeId){
+         // place id is not there , some preperation is needed
+        if(poi.poiName){
+            // we have here a predefined value
+            // predefined pois have all names
+            if(!poi.latLon){
+                // in this case userInput ( which can be a adress address ) 
+                // is mandatory
+                if(!(poi.usersText || poi.adress)){
 
-    return resolveWithPoiAndLatLon(poi)
-    .then(resolveWithUserInput)
-    .then(resolveWithLatLon)
-    .then(resolveWithPlaceId);
-
+                   // console.log("--------------Error poi is coming");
+                    
+                   // console.log(poi);
+                   // console.log("--------------Error poi end");
+                    
+                    throw "Poi: at least missing a free text input - like a adress";
+                }else{
+                    if(!poi.usersText){
+                        poi.usersText=poi.adress;
+                    }
+                }
+                // start with user text
+                return resolveWithUserInput(poi)
+                .then(resolveWithPlaceId);
+            }else{
+                // poiName and latLon
+                return resolveWithPoiAndLatLon(poi)
+                .then(resolveWithPlaceId);
+            }
+        }else{
+            // no poiname, custom poi
+            /// do we have latLon or user text ?
+            if(poi.latLon){
+                // lonlat
+                return resolveWithLatLon(poi)
+                .then(resolveWithPlaceId)
+            }else if(poi.userInput){
+                // other case, we have custom user input
+                return resolveWithUserInput(poi)
+                .then(resolveWithPlaceId);
+            }else{
+                // something is wrong, custom needs one of psrams above
+                throw "Poi:custom : missing a free text input( adress ) or latLon";
+            }
+        }
+        
+     }else{
+         // we have  placeId
+         return resolveWithPlaceId(poi);
+     }
+     throw "Poi: state exception, we should not be here";
+    
 }
 
 

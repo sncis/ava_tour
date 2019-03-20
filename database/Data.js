@@ -1,9 +1,9 @@
-import {CurrentGps,resolveGPoiData, GRoutes, createResultPromise, currentLatLonPromise} from './GApi';
+import {resolveGPoiData, GRoutes, createResultPromise, currentLatLonPromise} from './GApi';
 
 import axios from 'axios';
 
 export class Poi{
-    poiName="undefined";
+    poiName;
     latLon;
     usersText;
     briefDesc;
@@ -12,14 +12,16 @@ export class Poi{
     meanStay=0;
     poiData;
     placeId;
+    poiType;
+    poiTypeRanking;
+    adress = null;
     
     stateSource = new StateSource();
 
-
-
-    
     /**
      * depending on input the poi content is  created
+     * g Place Details api is used at the and
+     * for more details see https://developers.google.com/places/web-service/details
      * @param {Sring} poiName is the name of poi, may be null for custom locations
      * @param {String} latLon comma sepatated latitude,longitude
      * @param {String} usersText if not null text input pointing to a poi 
@@ -27,16 +29,12 @@ export class Poi{
      * @param {String} descr longer content description 
      * @param {String} poiImageUrl pointing to a description image
      * @param {String or integer} meanStayTimeInSecs is the mean stay duration for this poi
+     * @param {String} poiType is the type of the poi
+     * @param {integer} poiTypeRanking is the order of this poi in context of poiType
+     * 
      * */
-     constructor(poiName,latLon,usersText,briefDesc,descr,poiImageUrl,meanStayTimeInSecs){
-       
-       //autobind(this);
-       //console.log("POI::param poiname="+poiName);
-       
-       //console.log("\Poi paramter\n");
-       //console.log(poiName);console.log(latLon);
-       //console.log("\nbefore init\n");
-       //console.log(this);
+     constructor(poiName,latLon,usersText,briefDesc,descr,poiImageUrl,meanStayTimeInSecs,poiType,poiTypeRanking){
+
        this.poiName = poiName;
        this.latLon =  latLon;
        this.usersText    = usersText;
@@ -44,18 +42,38 @@ export class Poi{
        this.descr        = descr;
        this.poiImageUrl  = poiImageUrl;
        this.meanStay     = meanStayTimeInSecs;
-       //console.log("\nafter init\n");
-       //console.log(this);
+       this.poiType      = poiType;
+       this.poiTypeRanking = poiTypeRanking;
+
     }
 
-   
-    
+    /**
+     * return a Proise to fill data
+     */
+    fetchData = ()=>{
+        return resolveGPoiData(this)
+        .then((resultPoi)=>{
+            // fill empty fields, if needed
+            if(!this.poiName){
+                this.poiName = this.getVicinity();
+            }
+            if(!this.adress){
+                this.adress = this.getReportedAdress();
+            }
+            if(!this.latLon){
+                this.latLon = this.getResponedLatLon();
+            }
+            this.userText= undefined;
+            this.stateSource.fireStateChange(resultPoi);
+            return createResultPromise(resultPoi,true);
+        });
+    }
 
 
     /**
-     * makes a update of poi using given location
-     * if it is null so current location is used
-     * @param {string} latLon like '48.1234,-10.1234'
+     * makes a update of poi data using given location
+     * if it is null/undefiend so current location is used
+     * @param {string} latLon like '48.1234,-10.1234' or null
      */
     updateFromLocation =(latLon)=>{
         this.poiName=null;
@@ -66,28 +84,19 @@ export class Poi{
         this.poiData=null;
         return new Promise((resolve,reject)=>{
             if(latLon){
-                resolve(poi)
-                return;
-            }
-            currentLatLonPromise()
-            .then((latLon)=>{
-                poi.latLon= latLon;
-                resolve(poi);
-            })
-        })
-        .then(createPoiInitPromise((poi,error)=>{
-            if(error){
-                poi.poiName="unknown";
+                resolve(latLon);
             }else{
-                poi.poiName=poi.getVicinity();
-                }
-            poi.stateSource.fireStateChange(poi);
-        }))
-        .catch((error)=>{
-            poi.poiName="unknown";
-            poi.stateSource.fireStateChange(poi);
+                currentLatLonPromise()
+                .then((resultLatLon)=>{
+                    resolve(resultLatLon);
+                })
+            }
+        })
+        .then((latLon)=>{
+            this.latLon= latLon;
+            return this.fetchData();
         });
-
+        
     }
     /**
      * makes a update of poi using given user text
@@ -101,53 +110,20 @@ export class Poi{
             this.stayTime=0;
             this.latLon=null;
             this.poiData=null;
-        return createPoiInitPromise((poi,error)=>{
-            if(error){
-                poi.poiName="unknown";
-            }else{
-                poi.poiName=poi.getVicinity();
-                poi.latLon= poi.getResponedLatLon();
-            }
-            poi.stateSource.fireStateChange(poi);
-        });
-
-    }
-    /**
-     * returns promis for fetching poi data
-     * @param {callback} onInitDone onInitDone(thisInstance, error) error in any 
-     */
-    createPoiInitPromise= (onInitDone)=>{
-
-        return new Promise((resolve,reject)=>{
-            resolveGPoiData(this)
-            .then((poiInstance)=>{
-                if(onInitDone){
-                    onInitDone(poiInstance,null);
-                }
-                this.stateSource.fireStateChange(poiInstance);
-                resolve(poiInstance);
-            })
-            .catch((error)=>{
-                if(onInitDone){
-                    onInitDone(this,error);
-                }
-                this.stateSource.fireStateChange(this);
-                reject(error);
-            });
-        });
-    }
-
-    ///////////// unbound method names starts with _ underscore!
-    //// bounded without
+        return this.fetchData();
+        };
 
     // get the arrival time of this poi in seconds since 1.1.1970
     
     getStayTimeinSeconds= ()=>{
         return this.meanStay;
     }
+    getReportedAdress = ()=>{
+        return this.poiData.formatted_address;
+    }
 
     getPhoneNumber=()=>{
-        return this.poiData.formatted_address;
+        return this.poiData.international_phone_number;
     }
     getPlaceId= ()=>{
         //console.log(this);
