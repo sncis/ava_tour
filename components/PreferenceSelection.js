@@ -5,24 +5,20 @@ import { connect} from 'react-redux';
 import PreferenceButton from './PreferenceButton';
 import AvatarComponent from './AvatarComponent';
 import MainButton from './MainButton';
-import { setPreferences, clearPreferences } from '../store/actions/actions';
+import { setPreferences, clearPreferences, activateShowToursButton, unselectAll } from '../store/actions/actions';
 
 
 const mapDispatchToProps = dispatch => {
   return{
     setPreferences: (preferences) => dispatch(setPreferences(preferences)),
     clearPreferences: () => dispatch(clearPreferences()),
+    activateShowButton: (boolean) => dispatch(activateShowToursButton(boolean)),
+    unselect: (boolean) => dispatch(unselectAll(boolean)),
   }
 }
-
-const mapStateToProps = (state) => {
-  return {
-    prefs: state.selectedPreferences,
-  }
-}
-
 
 export class PreferenceSelectionForm extends Component {
+
   componentWillMount = () => {
     this.selectedPreferences = new Set()
   }
@@ -39,8 +35,21 @@ export class PreferenceSelectionForm extends Component {
   toogleSelectPreference = (label) => {
     if(this.selectedPreferences.has(label)){
       this.selectedPreferences.delete(label)
+      if(this.selectedPreferences.size >= 1){
+        this.props.activateShowButton(true)
+      }
+      else{
+        this.props.activateShowButton(false)
+      }
     }else{
       this.selectedPreferences.add(label);
+      if(this.selectedPreferences.size >= 1){
+        this.props.activateShowButton(true)
+      }
+      else{
+        this.props.activateShowButton(false)
+
+      }
     }
   }
 
@@ -53,14 +62,13 @@ export class PreferenceSelectionForm extends Component {
     this.props.clearPreferences();
 
     this.props.setPreferences(this.selectedPreferences);
-    
-    this.selectedPreferences = new Set();
+  
     this.props.navigateToResults()
   }
 
   render(){
     return(
-      <View>
+      <View style={styles.container}>
        <AvatarComponent text='Hey, I am Anton, your personal guide. Select your interests and I will prepare some Tours for you' />
 
         <View style={styles.preferenceContainer}> 
@@ -78,21 +86,25 @@ export class PreferenceSelectionForm extends Component {
 }
 
 
-const PreferenceSelection = connect(mapStateToProps,
+const PreferenceSelection = connect(null,
   mapDispatchToProps)(PreferenceSelectionForm)
 
 export default PreferenceSelection;
 
 const styles= StyleSheet.create({
+  container: {
+    height: '100%',
+    paddingBottom: 100,
+  },
   preferenceContainer:{
     flexDirection: 'row',
     flexWrap: 'wrap',
     justifyContent: 'center',
   },
-  textSection:{
-    marginBottom: '10%',
-  },
+  // textSection:{
+  //   marginBottom: '10%',
+  // },
   button: {
-    marginTop: '20%',
+    marginTop: '10%',
   }
 })

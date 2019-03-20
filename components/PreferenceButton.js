@@ -1,7 +1,16 @@
 import React, { Component } from 'react';
+import {connect} from 'react-redux';
 import { StyleSheet, Text, View, TouchableOpacity, Dimensions, Image } from 'react-native';
 
-export default class PreferenceButton extends Component {
+
+const mapStateToProps= (state) => {
+  return{
+    unselect: state.unselectAll,
+  }
+}
+
+
+export class PreferenceBut extends Component {
   constructor(props){
     super(props);
     this.state={
@@ -18,15 +27,10 @@ export default class PreferenceButton extends Component {
   }
 
   render(){
-    
-    const image = `require("../assets/images/${this.props.preferenceName}_icon.png")`
-    // const image = `../assets/images/${this.props.preferenceName}_icon.png`
-
-    // let image;
-    // console.log(image)
+    // const image = `require("../assets/images/${this.props.preferenceName}_icon.png")`
     return(
       <TouchableOpacity 
-        style={this.state.selected ? styles.buttonSelected : styles.buttonUnselected}
+        style={!this.state.selected || this.props.unselect ? styles.buttonUnselected : styles.buttonSelected}
         onPress={() => this.toogleSelectionChange()}>
         <View style={styles.iconWrapper}>
           {/* <Image source={{ image }} style={styles.icon}/> */}
@@ -40,6 +44,11 @@ export default class PreferenceButton extends Component {
   }
 };
 
+
+const PreferenceButton = connect(mapStateToProps, null)(PreferenceBut)
+
+export default PreferenceButton
+
 const styles= StyleSheet.create({
   iconWrapper:{
     flexDirection: 'column',
@@ -48,11 +57,11 @@ const styles= StyleSheet.create({
     alignItems: 'center',
   },
   buttonUnselected:{
-    backgroundColor:'lightgrey',
+    backgroundColor:'#C4C4C4',
     margin: '3%',
     // padding: '10%',
     width: '25%',
-    aspectRatio: 2 /2,
+    aspectRatio: 2 / 2,
     borderRadius: 3,
     alignItems: 'center',
     shadowColor: 'grey',
@@ -62,11 +71,11 @@ const styles= StyleSheet.create({
     elevation:10,
   },
   buttonSelected: {
-    backgroundColor:'blue',
+    backgroundColor:'#353B50',
     margin: '3%',
     // padding: '10%',
     width: '25%',
-    aspectRatio: 2 /2, 
+    aspectRatio: 2 /2,
     borderRadius: 3,
     alignItems: 'center',
     shadowColor: 'grey',
