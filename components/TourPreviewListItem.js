@@ -1,12 +1,9 @@
 import React, { Component } from 'react';
-import { View, Text, Image, StyleSheet, TouchableOpacity } from 'react-native';
+import { View, Text, Image, StyleSheet, TouchableOpacity, ImageBackground, Dimensions } from 'react-native';
 import { connect } from 'react-redux';
-
 import { Rating } from 'react-native-elements';
-
+import { LinearGradient } from 'expo';
 import { setSelectedTourName} from '../store/actions/actions';
-import dbInstance from '../database/Database';
-
 
 // require("../assets/images/robot-dev.png")
 // uri: image const image = 'https://source.unsplash.com/600x400/?munich';
@@ -26,28 +23,66 @@ export class TourPreviewListElement extends Component {
   }
 
   render() {
-    return(
-      
+    return(    
       <TouchableOpacity title="" onPress={() => this.onTourSelect(this.props.headline)} style={styles.touchContainer}> 
-        <View style={styles.imageContainer}> 
-          <Image source={require("../assets/images/munich.jpg")} style={styles.tourPreviewImage}></Image>
-
-        </View>  
-        <View style={styles.textContainer}>
-          <Text style={styles.tourHeadline}>{this.props.headline}</Text>
-          <Text style={styles.descriptiontext}>small description of text</Text>
-
-          <Text style={styles.smallTextDuration}>{this.props.duration}</Text>
-          <Text style={styles.smallText}>{this.props.price}</Text>
-          <View style={styles.ratingContainer}>
-            {/* <Text style={styles.rating}>{this.props.rating}</Text> */}
-            <Rating style={styles.star}
-              imageSize={20}
-              readonly
-              startingValue={this.props.ratingNum}
-              />
+      <View style={styles.contentContainer}>
+        
+        <View>
+            <ImageBackground resizeMode={'cover'} style={styles.imageContainer} source={require("../assets/images/munich.jpg")} />
+            <LinearGradient colors={['rgba(255,255,255,1)', 'rgba(255,255,255,0.7)','transparent']}
+              style={{
+                position: 'absolute',
+                left: 0,
+                right: 0,
+                height: '100%',
+              }} 
+              end={[0,0.5]}
+              start={[0,1]}
+            />
           </View>
-        </View>
+
+
+          <View style={styles.textContainer}>
+            <View style={styles.hourContainer}>
+              <Image source={require('../assets/images/Vector.png')} style={styles.hourIcon} />
+              <Text style={styles.smallTextDuration}>{this.props.duration}</Text>
+            </View>
+
+            <Text style={styles.tourHeadline}>{this.props.headline}</Text>
+            
+            {/* <Text style={styles.descriptiontext}>small description of text</Text> */}
+
+            <View style={styles.priceContainer}>
+              <Text style={styles.price}>{this.props.price}€</Text>
+              <Text style={styles.perTour}>per tour</Text>
+            </View>
+
+
+            <View style={styles.ratingContainer}>
+              <Rating style={styles.star}
+                imageSize={12}
+                readonly
+                startingValue={this.props.ratingNum}
+                />
+              <Text style={styles.rating}>{this.props.rating}</Text>
+
+            </View>
+          </View>
+
+      </View>
+        
+        {/* <View style={styles.imageContainer}> 
+            <LinearGradient 
+          colors={['#4c669f', '#3b5998', '#192f6a']}
+          style={{ ...styles.imageContainer, alignItems: 'center', borderRadius: 5 , zIndex: 10}}>
+
+          
+            <Image source={require("../assets/images/munich.jpg")} style={styles.tourPreviewImage}></Image>
+
+          </LinearGradient>
+        </View>   */}
+
+       
       </TouchableOpacity>
     );
   };
@@ -59,68 +94,87 @@ export default TourPreviewListItem
 
 const styles = StyleSheet.create({
   touchContainer: {
+    alignSelf: 'center',
+    width: Dimensions.get('window').width - 100,
     flexDirection: 'column',
     justifyContent: 'flex-start',
     backgroundColor:'white',
-    margin: 7,
-    marginLeft:15,
-    marginRight:15,
-    borderRadius: 5,
-    shadowColor: 'grey',
-    shadowOffset: { width: 0, height: 0},
-    shadowOpacity: 0.8,
-    shadowRadius: 3,
+    margin: '5%',
+    marginLeft:'5%',
+    // marginRight:15,
+    borderRadius: 20,
+    shadowColor: 'black',
+    shadowOffset: { width: 1, height: 1},
+    shadowOpacity: 0.6,
+    shadowRadius: 10,
     elevation:10,
+    
   },
+  contentContainer: {
+    borderRadius: 20,
+    // borderWidth: 0.3,
+    // borderColor: '#C4C4C4',
 
+  },
+  hourContainer: {
+    flexDirection: 'row',
+    alignContent: 'center',
+    alignItems: 'center',
+  },
+  hourIcon: {
+    width: '8%',
+    height: '70%',
+    resizeMode: 'contain'
+
+  },
   textContainer: {
     flex: 1,
     flexDirection: 'column',
-    padding: 15,
+    padding: 20,
+    borderRadius: 20,
     backgroundColor: 'white',
-    shadowColor: "#FFFFFF",
-    shadowOffset: { width: 0, height: -30},
-    shadowOpacity: 1,
-    shadowRadius: 10,
-    elevation:14,
-    // borderRadius: 5,
+    overflow: 'hidden'  
+    },
 
-  },
   tourHeadline: {
     flex: 1,
-    flexWrap: 'wrap',
+    // flexWrap: 'wrap',
     color: 'black',
-    fontWeight: 'bold',
-    fontSize: 16,
-    marginBottom: 0,
+    fontWeight: '400',
+    fontSize: 20,
+    marginTop: '3%',
+    marginBottom: '3%',
   },
+
   descriptiontext: {
     fontWeight: '400',
     fontSize: 16,
-    marginBottom: 4
-
-
+    marginBottom: 5
   },
-  smallText: {
+  priceContainer: {
+    flexDirection: 'row',
+  },
+  price: {
     color: 'black',
-    fontWeight: '100',
-    fontSize: 16,
+    fontWeight: '400',
+    fontSize: 24,
+    marginRight: '2%',
   },
-  smallTextDuration: {
-    color: 'black',
-    fontWeight: '100',
-    fontSize: 12,
-    marginBottom: 10,
+  perTour: {
+    fontWeight: '200'
   },
+  
   imageContainer: {
-    borderRadius: 5,
-    overflow : 'hidden'
+    borderRadius: 20,
+    overflow : 'hidden',
+    width: '100%',
+    height: 300,
 
   },
   tourPreviewImage: {
     flex: 2,
     width: '100%',
-    height: 300,
+    height: '100%',
     resizeMode: 'cover',
         
   },
@@ -131,16 +185,16 @@ const styles = StyleSheet.create({
   },
   rating:{
     marginTop: 10,
-    marginLeft: 0,
-    marginRight: 10,
+    marginLeft: 10,
+    marginRight: 0,
     color: 'black',
     fontWeight: '100',
     fontSize: 12
   },
   star: {
-    height:'5%',
     marginTop: 10,
     marginBottom: 15,
   }
 
 });
+

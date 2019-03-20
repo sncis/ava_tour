@@ -1,13 +1,20 @@
 import React, { Component } from 'react';
 import {ScrollView, View, Button, StyleSheet, Text, Image, TouchableOpacity, Dimensions} from 'react-native';
 import { connect } from 'react-redux';
+import { getCurrentRouteContent } from '../store/actions/actions'
+
 import TourDetailsList from './TourDetailsList';
 import PreviewHeaderImageComponent from './PreviewHeaderImageComponent';
-import dbInstance from '../database/Database';
+import PreviewComponent from './PreviewComponent';
 import MainButton from './MainButton';
 
-import store from '../store/store/store'
+import store from '../store/store/store';
 
+const mapDispatchToProps = (dispatch) => {
+  return {
+    getTourContent: () => dispatch(getCurrentRouteContent())
+  }
+}
 
 const mapStateToProps = (state) => {
   return {
@@ -16,14 +23,17 @@ const mapStateToProps = (state) => {
 }
 
 export class TourDetailComponent extends Component {
-  componentWillMount = () => (
+  componentWillMount = () => {
     console.log(this.props.currentTourName)
-  )
+    this.props.getTourContent()
+  }
 
   render() {
     return(
       <View style={styles.page}>
-        <ScrollView style={styles.scrollContainer}> 
+
+      <PreviewComponent />
+        {/* <ScrollView style={styles.scrollContainer}> 
         <View style={styles.container}> 
          <PreviewHeaderImageComponent tourName={this.props.currentTourName} />
           <View style={styles.timeLocationContainer}>
@@ -37,7 +47,7 @@ export class TourDetailComponent extends Component {
         <View style={styles.button}>
           <MainButton text='Book Tour' pressFunction={this.props.goToPickUpForm}/>
         </View>
-        {/* {this.state.showCarOverlay && <SelectionOverlay forNo={this.props.goToTourNavigation}/>} */}
+        {this.state.showCarOverlay && <SelectionOverlay forNo={this.props.goToTourNavigation}/>} */}
 
       </View>
     )
@@ -45,7 +55,7 @@ export class TourDetailComponent extends Component {
 }
 
 
-const TourDetail = connect(mapStateToProps, null)(TourDetailComponent)
+const TourDetail = connect(mapStateToProps, mapDispatchToProps)(TourDetailComponent)
 
 export default TourDetail;
 

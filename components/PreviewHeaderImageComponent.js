@@ -19,6 +19,7 @@ const PreviewHeaderImageComponent = (props) => (
 
 const styles = StyleSheet.create({
   headerContainer: {
+    // backgroundColor: 'transparent',
     // margin:20,
   },
   headline: {

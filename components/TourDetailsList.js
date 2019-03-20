@@ -6,11 +6,11 @@ import { getCurrentRouteContent } from '../store/actions/actions'
 import TourDetailsListItem from './TourDetailsListItem';
 
 
-const mapDispatchToProps = (dispatch) => {
-  return {
-    getTourContent: () => dispatch(getCurrentRouteContent())
-  }
-}
+// const mapDispatchToProps = (dispatch) => {
+//   return {
+//     getTourContent: () => dispatch(getCurrentRouteContent())
+//   }
+// }
 const mapStateToProps = (state) => {
   return{ 
     tour : state.routeContent
@@ -50,7 +50,7 @@ export class TourDetailsComponent extends Component {
   // }
 
 
-const TourDetailsList = connect(mapStateToProps, mapDispatchToProps)(TourDetailsComponent)
+const TourDetailsList = connect(mapStateToProps, null)(TourDetailsComponent)
 
 export default TourDetailsList
  

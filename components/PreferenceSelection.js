@@ -74,7 +74,7 @@ export class PreferenceSelectionForm extends Component {
 
   render(){
     return(
-      <View>
+      <View style={styles.container}>
        <AvatarComponent text='Hey, I am Anton, your personal guide. Select your interests and I will prepare some Tours for you' />
 
         <View style={styles.preferenceContainer}> 
@@ -98,15 +98,19 @@ const PreferenceSelection = connect(null,
 export default PreferenceSelection;
 
 const styles= StyleSheet.create({
+  container: {
+    height: '100%',
+    paddingBottom: 100,
+  },
   preferenceContainer:{
     flexDirection: 'row',
     flexWrap: 'wrap',
     justifyContent: 'center',
   },
-  textSection:{
-    marginBottom: '10%',
-  },
+  // textSection:{
+  //   marginBottom: '10%',
+  // },
   button: {
-    marginTop: '20%',
+    marginTop: '10%',
   }
 })

@@ -2,9 +2,8 @@ import React from 'react';
 import uuidv1 from "uuid";
 import TourPreviewListItem from './TourPreviewListItem';
 import { connect } from 'react-redux';
-import {Text} from 'react-native';
+import {ScrollView, StyleSheet, View} from 'react-native';
 import { getRecommendedTours } from '../store/actions/actions';
-import dbInstance  from '../database/Database';
 
 
 generateRandomNumer = () => {
@@ -49,11 +48,29 @@ export class TourPreview extends React.Component {
 
   render() {
     return(
-      this.createRoutes()
+      <View style={styles.container} >
+        <ScrollView horizontal={true}
+            pagingEnabled >
+          {this.createRoutes()}
+
+        </ScrollView>
+      </View>
+      
     )
   }
   
 }
+
+const styles= StyleSheet.create({
+
+container: {
+  paddingTop: '20%',
+  paddingBottom: '10%',
+  paddingRight: '20%',
+  paddingLeft: "4%",
+
+}
+})
 
 
 const TourPreviewList = connect(mapStateToProp,mapDispatchToProps)(TourPreview);

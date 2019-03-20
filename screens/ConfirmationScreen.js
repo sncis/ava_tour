@@ -1,5 +1,5 @@
 import React, {Component} from 'react';
-import {View, StyleSheet, Text, Image, ScrollView} from 'react-native';
+import {View, StyleSheet, Text, Image, ScrollView, Dimensions} from 'react-native';
 import { connect } from 'react-redux';
 import AvatarComponent from '../components/AvatarComponent';
 import store from '../store/store/store'
@@ -19,7 +19,8 @@ export class Confirmation extends Component {
   render(){
     console.log(store.getState())
     return(
-      <ScrollView>
+      <View style={styles.pageContainer}>
+         <ScrollView>
         <AvatarComponent text={`Perfect! You ordered the ${this.props.currentRoute} Tour.`}/>
         <View style={styles.container}>
         <View style={styles.imageContainer}>
@@ -45,6 +46,9 @@ export class Confirmation extends Component {
             </Text>
         </View>
       </ScrollView>
+
+      </View>
+     
     )
   }
 }
@@ -54,6 +58,10 @@ const ConfirmationScreen = connect(mapStateToProps, null)(Confirmation)
 export default ConfirmationScreen;
 
 const styles = StyleSheet.create({
+  pageContainer: {
+    height: Dimensions.get('window').height,
+    width: Dimensions.get('window').width,
+  },
   container: {
     padding: 15,
   },

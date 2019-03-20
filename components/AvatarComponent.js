@@ -13,20 +13,29 @@ export default AvatarComponent;
 
 const styles = StyleSheet.create({
   imageContainer: {
-    margin: 30,
+    backgroundColor: 'transparent',
+    marginTop: '5%',
+    marginBottom: '1%',
+    marginLeft: '10%',
+    marginRight: '10%'
     
   },
   avatar: {
+    backgroundColor: 'transparent',
     alignSelf: 'center',
-    height:150,
-    width: '60%',
+    height: '50%',
+    width: '50%',
     resizeMode: 'contain',
   },
   text: {
+    alignSelf: 'center',
+    width: '90%',
+    lineHeight: 20,
+    backgroundColor: 'transparent',
     textAlign: 'center',
-    fontWeight: '300',
+    fontWeight: '400',
     color: 'black',
-    fontSize: 20,
-    marginTop:15,
+    fontSize: 16,
+    marginTop: '5%',
   }
 })

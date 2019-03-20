@@ -36,7 +36,7 @@ export class PreferenceBut extends Component {
           {/* <Image source={{ image }} style={styles.icon}/> */}
           <Image source={require("../assets/images/History_icon.png")} style={styles.icon}/>
 
-          <Text style={!this.state.selected || this.props.unselect ? styles.buttonUnselected : styles.buttonSelected}>{this.props.preferenceName}</Text>
+          <Text style={!this.state.selected || this.props.unselect ? styles.buttonTextUnselected : styles.buttonTextSelected}>{this.props.preferenceName}</Text>
         </View>
      </TouchableOpacity> 
 
@@ -61,7 +61,7 @@ const styles= StyleSheet.create({
     margin: '3%',
     // padding: '10%',
     width: '25%',
-    aspectRatio: 2 /2,
+    aspectRatio: 2 / 2,
     borderRadius: 3,
     alignItems: 'center',
     shadowColor: 'grey',

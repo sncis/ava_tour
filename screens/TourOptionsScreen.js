@@ -8,7 +8,7 @@ export default class TourOptionsScreen extends Component {
   render() {
     // console.log(store.getState())
     return(
-      <ScrollView>
+      <ScrollView >
         <AvatarComponent text='Here our suggestions for your amazing Tour, please click one.' />
         <TourPreviewList goToTourDetails={() => this.props.navigation.navigate("TourDetails")}/>
       </ScrollView>

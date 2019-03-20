@@ -34,10 +34,7 @@ export const activateShowToursButton = (boolean) => ({
   payload: boolean
 })
 
-export const unselectAll = (boolean) => (
-  console.log("tryyyyyyyyyy"),
-  {
-  
+export const unselectAll = (boolean) => ({
   type: UNSELECT_ALL,
   payload: boolean
 })
@@ -72,7 +69,6 @@ export const getCurrentRouteContent = () => {
     // const tourName = store.getState().selectedTourName;
     const routeContent = tour1;
     // const routeContent = dbInstance.getRouteContent(tourName);
-   
     dispatch(setRouteContent(routeContent));
   }
 }

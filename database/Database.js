@@ -95,21 +95,21 @@ hardCodedTours(){
     return [
         {
             routeName   : 'Nature, Beergarden, Seightseeing',
-            duration    : "3 hrs",
-            price       : "50 Euro",
+            duration    : "3 hours",
+            price       : "50",
             rating      : "4.5"
         },
         {
             routeName   : 'History and Beergarden at Lake',
-            duration    : "4 hrs",
-            price       : "60 Euro",
+            duration    : "4 hours",
+            price       : "60",
             rating      : "4.0"
         }
         ,
         {
             routeName   : 'Car driving and Bavarian Lakes',
-            duration    : "3.5 hrs",
-            price       : "30 Euro",
+            duration    : "3.5 hours",
+            price       : "30",
             rating      : "4.7"
         }
     ];
