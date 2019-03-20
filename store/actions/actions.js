@@ -11,8 +11,6 @@ import { SET_PREFERENCES,
   SET_LASTNAME,
   SET_EMAIL,
   SET_PHONE_NUM,
-  ACTIVATE_SHOW_TOURS_BUTTON,
-  UNSELECT_ALL
 
 } from '../constants/actionTypes';
 import store from '../store/store';
@@ -27,19 +25,6 @@ export const setPreferences = (preferences) => ({
 export const clearPreferences = () => ({
   type: CLEAR_PREFERENCES,
   payload: []
-})
-
-export const activateShowToursButton = (boolean) => ({
-  type: ACTIVATE_SHOW_TOURS_BUTTON,
-  payload: boolean
-})
-
-export const unselectAll = (boolean) => (
-  console.log("tryyyyyyyyyy"),
-  {
-  
-  type: UNSELECT_ALL,
-  payload: boolean
 })
 
 export const setTours = (tours) => ({

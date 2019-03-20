@@ -5,20 +5,24 @@ import { connect} from 'react-redux';
 import PreferenceButton from './PreferenceButton';
 import AvatarComponent from './AvatarComponent';
 import MainButton from './MainButton';
-import { setPreferences, clearPreferences, activateShowToursButton, unselectAll } from '../store/actions/actions';
+import { setPreferences, clearPreferences } from '../store/actions/actions';
 
 
 const mapDispatchToProps = dispatch => {
   return{
     setPreferences: (preferences) => dispatch(setPreferences(preferences)),
     clearPreferences: () => dispatch(clearPreferences()),
-    activateShowButton: (boolean) => dispatch(activateShowToursButton(boolean)),
-    unselect: (boolean) => dispatch(unselectAll(boolean)),
   }
 }
 
-export class PreferenceSelectionForm extends Component {
+const mapStateToProps = (state) => {
+  return {
+    prefs: state.selectedPreferences,
+  }
+}
 
+
+export class PreferenceSelectionForm extends Component {
   componentWillMount = () => {
     this.selectedPreferences = new Set()
   }
@@ -35,21 +39,8 @@ export class PreferenceSelectionForm extends Component {
   toogleSelectPreference = (label) => {
     if(this.selectedPreferences.has(label)){
       this.selectedPreferences.delete(label)
-      if(this.selectedPreferences.size >= 1){
-        this.props.activateShowButton(true)
-      }
-      else{
-        this.props.activateShowButton(false)
-      }
     }else{
       this.selectedPreferences.add(label);
-      if(this.selectedPreferences.size >= 1){
-        this.props.activateShowButton(true)
-      }
-      else{
-        this.props.activateShowButton(false)
-
-      }
     }
   }
 
@@ -62,13 +53,8 @@ export class PreferenceSelectionForm extends Component {
     this.props.clearPreferences();
 
     this.props.setPreferences(this.selectedPreferences);
-    // console.log(this.selectedPreferences)
     
-    // this.selectedPreferences = new Set();
-    // this.props.unselect(true);
-    
-    // console.log("$$$$$$$$$$")
-    // console.log(this.selectedPreferences.size)
+    this.selectedPreferences = new Set();
     this.props.navigateToResults()
   }
 
@@ -92,7 +78,7 @@ export class PreferenceSelectionForm extends Component {
 }
 
 
-const PreferenceSelection = connect(null,
+const PreferenceSelection = connect(mapStateToProps,
   mapDispatchToProps)(PreferenceSelectionForm)
 
 export default PreferenceSelection;
