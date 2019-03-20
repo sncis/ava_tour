@@ -68,32 +68,29 @@ initPois= ()=>{
        //console.log("pd poiname\n");
        //console.log(pd);
         
-        
+        //poiName,latLon,usersText,briefDesc,descr,poiImageUrl,meanStayTimeInSecs,poiType,poiTypeRanking
         const poiToInit = new Poi(
             pd.poiName,
             pd.poiLocation,
-            null,
+            pd.poiAdress,
             pd.poiBriefly,
             pd.poiDescription,
             pd.poiImageUrl,
-            pd.stayTime
+            pd.stayTime,
+            pd.poiType,
+            pd.ranking
         );
        // console.log(poiToInit);
         
         this.poiList.push(poiToInit);
         //console.log(this.poiList);
         
-        const poiPromise = poiToInit.createPoiInitPromise((filledPoi, error)=>{
-            if(error){
-                console.log("\n----------poi init error "+filledPoi.poiName);
-                console.log(error);
-                console.log("\n-------------------------------------------");
-                return;
-            }
+        const poiPromise = poiToInit.fetchData()
+        .then((filledPoi)=>{
             this.poiMap.set(filledPoi.getPlaceId(),filledPoi);
         });
-
         poiPromises.push(poiPromise);
+        
         if(once){
             console.log("??????????????created promises ="+poiPromises.length);
             
@@ -148,7 +145,7 @@ initToursPromises(){
         console.log('\n starting init of pois');
         
         Promise.all(this.initPois())
-        .then(Promise.all(this.initToursPromises()))
+        //.then(Promise.all(this.initToursPromises()))
         .then(()=>{
             console.log('\n done init of pois\nstarting init of touts');
 
