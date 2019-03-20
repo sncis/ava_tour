@@ -36,7 +36,7 @@ export class PreferenceBut extends Component {
           {/* <Image source={{ image }} style={styles.icon}/> */}
           <Image source={require("../assets/images/History_icon.png")} style={styles.icon}/>
 
-          <Text style={!this.state.selected || this.props.unselect ? styles.buttonUnselected : styles.buttonSelected}>{this.props.preferenceName}</Text>
+          <Text style={!this.state.selected || this.props.unselect ? styles.buttonTextUnselected : styles.buttonTextSelected}>{this.props.preferenceName}</Text>
         </View>
      </TouchableOpacity> 
 
