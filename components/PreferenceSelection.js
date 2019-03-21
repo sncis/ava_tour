@@ -60,9 +60,7 @@ export class PreferenceSelectionForm extends Component {
 
   handleSubmit = () => {
     this.props.clearPreferences();
-
     this.props.setPreferences(this.selectedPreferences);
-  
     this.props.navigateToResults()
   }
 
@@ -76,9 +74,7 @@ export class PreferenceSelectionForm extends Component {
         </View>
         <View style={styles.button}>
          <MainButton text='Show Tours' pressFunction={() => this.handleSubmit()} />
-
-        </View>
-       
+        </View> 
       </View>
 
     )
