@@ -11,6 +11,8 @@ import {SET_PREFERENCES,
   SET_LOCATION,
   SET_PEOPLE,
   SET_EXITER,
+  ACTIVATE_SHOW_TOURS_BUTTON,
+  UNSELECT_ALL,
   
 } from '../constants/actionTypes';
 
@@ -36,10 +38,18 @@ const initialState = {
   expMonth:'',
   exYear: '',
   securityCode: '',
+  activateShowToursButton: false,
+  unselectAll: false
 };
 
 const rootReducer = (state = initialState, action = '') => {
   switch(action.type){
+    case ACTIVATE_SHOW_TOURS_BUTTON:
+    return{ ...state,activateShowToursButton: action.payload }
+
+    case UNSELECT_ALL:
+    return{ ...state, unselectAll: action.payload}
+
     case SET_PREFERENCES:
       return{...state, selectedPreferences: action.payload}
 

@@ -11,12 +11,15 @@ import { SET_PREFERENCES,
   SET_LASTNAME,
   SET_EMAIL,
   SET_PHONE_NUM,
+  ACTIVATE_SHOW_TOURS_BUTTON,
+  UNSELECT_ALL
 
 } from '../constants/actionTypes';
 import store from '../store/store';
 import dbInstance from '../../database/Database2';
 import { tour1 } from '../../data';
 import {generatePreferencedTours} from '../../database/TourGenerator';
+
 
 export const setPreferences = (preferences) => ({
   type: SET_PREFERENCES,
@@ -26,6 +29,16 @@ export const setPreferences = (preferences) => ({
 export const clearPreferences = () => ({
   type: CLEAR_PREFERENCES,
   payload: []
+})
+
+export const activateShowToursButton = (boolean) => ({
+  type: ACTIVATE_SHOW_TOURS_BUTTON,
+  payload: boolean
+})
+
+export const unselectAll = (boolean) => ({
+  type: UNSELECT_ALL,
+  payload: boolean
 })
 
 export const setTours = (tours) => ({
@@ -58,7 +71,6 @@ export const getCurrentRouteContent = () => {
     // const tourName = store.getState().selectedTourName;
     const routeContent = tour1;
     // const routeContent = dbInstance.getRouteContent(tourName);
-   
     dispatch(setRouteContent(routeContent));
   }
 }

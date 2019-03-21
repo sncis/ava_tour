@@ -1,16 +1,12 @@
 import React from 'react';
-import uuidv1 from "uuid";
 import TourPreviewListItem from './TourPreviewListItem';
 import { connect } from 'react-redux';
-import {Text} from 'react-native';
+import {Text, View, ScrollView, StyleSheet} from 'react-native';
 import { getRecommendedTours } from '../store/actions/actions';
 import dbInstance  from '../database/Database';
 
 
-generateRandomNumer = () => {
-  const ratingNum = Math.floor(Math.random() * 5 + 1 );
-  return ratingNum;
-}
+
 
 const mapDispatchToProps = dispatch => {
   return{
@@ -33,6 +29,12 @@ export class TourPreview extends React.Component {
    this.props.getToures();
   }
 
+  generateRandomNumer = () => {
+    const ratingNum = Math.floor(Math.random() * 5 + 1 );
+    return ratingNum;
+  }
+
+
   createRoutes = () => (
     this.props.tours.map(tour => {
     return(
@@ -42,18 +44,36 @@ export class TourPreview extends React.Component {
         duration={tour.duration} 
         price={tour.price} 
         rating={tour.rating} 
-        ratingNum={this.generateRandomNumer} 
-        key={uuidv1()} />)
+        ratingNum={this.generateRandomNumer()} 
+        key={tour.routeName} />)
     })
   )
 
   render() {
     return(
-      this.createRoutes()
+      <View style={styles.container}>
+        <ScrollView horizontal={true} style={styles.scroll} >
+        {this.createRoutes()}
+
+        </ScrollView>
+
+      </View>
     )
   }
   
 }
+
+const styles = StyleSheet.create({
+  container: {
+    // paddingLeft: 100,
+    // paddingRight: 100
+
+  },
+  scroll: {
+    // zIndex: 10,
+  }
+
+})
 
 
 const TourPreviewList = connect(mapStateToProp,mapDispatchToProps)(TourPreview);
