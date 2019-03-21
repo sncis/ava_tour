@@ -16,8 +16,9 @@ import { SET_PREFERENCES,
 
 } from '../constants/actionTypes';
 import store from '../store/store';
-import dbInstance from '../../database/Database';
-import { tour1 } from '../../data'
+import dbInstance from '../../database/Database2';
+import { tour1 } from '../../data';
+import {generatePreferencedTours} from '../../database/TourGenerator';
 
 
 export const setPreferences = (preferences) => ({
@@ -116,3 +117,14 @@ export const getRecommendedTours = () => {
     dispatch(setTours(tourNames));
   }
 }
+
+export const generateTours = () => {
+  return(dispatch, getState) => {
+    const preferences = store.getState().preferences
+    return generatePreferencedTours(preferences);
+
+  }
+}
+
+
+

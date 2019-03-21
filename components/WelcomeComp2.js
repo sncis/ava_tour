@@ -1,8 +1,24 @@
 import React, { Component }from 'react';
 import { StyleSheet , View, Button, Text, Image, ImageBackground } from 'react-native';
+import dbInstance from '../database/Database2';
+
 
 export default class WelcomeComponent extends Component {
+  constructor(props){
+    super(props);
+    this.state = {
+      active: false
+      }
+    }
   
+
+  componentDidMount = () => {
+    dbInstance.stateSource.addListener(WelcomeComponent, (db) => {
+      this.setState({
+          active: true,
+      })
+    })
+  }
   render(){
     return(
     <ImageBackground source={require("../assets/images/welcome_background.png")} 

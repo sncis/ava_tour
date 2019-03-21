@@ -1,4 +1,3 @@
-
 class Database{
 
     ///////////// hard coded routes
@@ -242,6 +241,7 @@ hardcodedPois(){
     }
     
     
+    
     // needs citi name for future use
     // returns array of map entries with given keys
     // routeName,PoiName,poiLocation,poiBriefDescription,poiDescription,poiImageUrl
@@ -293,5 +293,3 @@ hardcodedPois(){
 const dbInstance = new Database();
 
 export default dbInstance;
-    
-
