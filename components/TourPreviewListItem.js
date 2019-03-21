@@ -34,7 +34,7 @@ export class TourPreviewListElement extends Component {
         <View style={styles.contentContainer}>
         
         <View style={styles.imageGradientContainer}>
-            <ImageBackground style={styles.backgroundImage} source={require("../assets/images/munich.jpg")} />
+            <ImageBackground style={styles.backgroundImage} source={require("../assets/images/backgroundImage.jpeg")} />
             <LinearGradient colors={['rgba(255,255,255,1)', 'rgba(255,255,255,0.8)','rgba(255,255,255,0.6)', 'transparent']}
               style={{
                 position: 'absolute',
