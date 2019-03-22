@@ -17,9 +17,9 @@ export class PickUpFormScreenElement extends Component {
     return(
       <View style={styles.mainContainer}>
         <AvatarComponent text={`Great! You selected the ${this.props.tour} Tour.`}/>
-        <PickUpForm navigation= {() => this.props.navigation.navigate('Payment')}/>
+        <PickUpForm navigation= {() => this.props.navigation.navigate('TourOptions')}/>
         <View style={styles.button}>
-         <MainButton pressFunction={() => this.props.navigation.navigate('Payment')} text="Next" />
+         <MainButton pressFunction={() => this.props.navigation.navigate('TourOptions')} text="Next" />
         </View>
       </View>
 

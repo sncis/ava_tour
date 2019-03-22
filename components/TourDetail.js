@@ -24,24 +24,6 @@ export class TourDetailComponent extends Component {
   render() {
     return(
       <PreviewComponent />
-      // <View style={styles.page}>
-      //   <ScrollView style={styles.scrollContainer}> 
-      //   <View style={styles.container}> 
-      //    <PreviewHeaderImageComponent tourName={this.props.currentTourName} />
-      //     <View style={styles.timeLocationContainer}>
-      //       <Text style={styles.time}>Time</Text>
-      //       <Text styles={styles.location}>Location</Text>
-      //     </View>
-      //     <TourDetailsList goToLocation={this.props.goToLocationDetails} style={styles.tourDetailsList} tourName={this.props.currentTourName} />
-      //     </View>
-      //   </ScrollView>
-
-      //   <View style={styles.button}>
-      //     <MainButton text='Book Tour' pressFunction={this.props.goToPickUpForm}/>
-      //   </View>
-      //   {/* {this.state.showCarOverlay && <SelectionOverlay forNo={this.props.goToTourNavigation}/>} */}
-
-      // </View>
     )
   }
 }

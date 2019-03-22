@@ -8,7 +8,7 @@ export default class PreferenceSelectionScreen extends Component {
  
   render(){
     return(
-      <PreferenceSelection navigateToResults={() => this.props.navigation.navigate('TourOptions')}/>
+      <PreferenceSelection navigateToResults={() => this.props.navigation.navigate('PickUpForm')}/>
     )
   }
 };
