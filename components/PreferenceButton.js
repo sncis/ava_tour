@@ -9,6 +9,25 @@ const mapStateToProps= (state) => {
   }
 }
 
+export const iSources = [
+  require("../assets/images/Museum_icon.png"),
+  require("../assets/images/Local_Food_icon.png"),
+  require("../assets/images/History_icon.png"),
+  require("../assets/images/Music_icon.png"),
+   require("../assets/images/Nature_icon.png"),
+   require("../assets/images/Street_Art_icon.png"),
+   require("../assets/images/Street_Art_icon.png"),
+   
+]
+const iKeys = [
+  "Museum",
+  "Local Food",  
+  "History",     
+   "Music",       
+     "Nature",     
+  "Street Art" , 
+  "Parks"       ,
+]
 
 export class PreferenceBut extends Component {
   constructor(props){
@@ -16,6 +35,18 @@ export class PreferenceBut extends Component {
     this.state={
       selected: false
     }
+    //this.state.icons = new Map();
+    
+    
+  }
+
+// {<Image source={require("../assets/images/History_icon.png")} style={styles.icon}/>*/}
+
+  getIcon = (prefName) =>{
+     const i = iKeys.indexOf(prefName);
+     console.log("icon index",i);
+     
+     return iSources[i]; 
   }
 
   toogleSelectionChange = () => {
@@ -26,16 +57,24 @@ export class PreferenceBut extends Component {
     return handelPreferenceChange(preferenceName);
   }
 
+  resolveImage = ()=>{
+
+  }
+
   render(){
-    // const image = `require("../assets/images/${this.props.preferenceName}_icon.png")`
+    console.log("preferenes",this.props.preferenceName);
+    const iconS = this.getIcon(this.props.preferenceName);
+    const iName = this.props.preferenceName;
+    //const iSource = this.state.icons.get(iName);
+    //console.log(iconSources[preferenceName]);
+    //const image = `require("../assets/images/${this.props.preferenceName}_icon.png")`
     return(
       <TouchableOpacity 
         style={!this.state.selected || this.props.unselect ? styles.buttonUnselected : styles.buttonSelected}
         onPress={() => this.toogleSelectionChange()}>
         <View style={styles.iconWrapper}>
           {/* <Image source={{ image }} style={styles.icon}/> */}
-          <Image source={require("../assets/images/History_icon.png")} style={styles.icon}/>
-
+          <Image source={iconS} style={styles.icon}/>
           <Text style={!this.state.selected || this.props.unselect ? styles.buttonTextUnselected : styles.buttonTextSelected}>{this.props.preferenceName}</Text>
         </View>
      </TouchableOpacity> 
