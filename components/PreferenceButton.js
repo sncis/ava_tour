@@ -16,9 +16,9 @@ export const iSources = [
   require("../assets/images/Music_icon.png"),
    require("../assets/images/Nature_icon.png"),
    require("../assets/images/Street_Art_icon.png"),
-   require("../assets/images/Street_Art_icon.png"),
+   require("../assets/images/Parks_icon.png"),
    
-]
+] 
 const iKeys = [
   "Museum",
   "Local Food",  
