@@ -96,20 +96,23 @@ hardCodedTours(){
             routeName   : 'Nature, Beergarden, Seightseeing',
             duration    : "3 hrs",
             price       : "50 Euro",
-            rating      : "4.5"
+            rating      : "4.5",
+            image       : "https://www.google.com/url?sa=i&source=images&cd=&cad=rja&uact=8&ved=2ahUKEwiu9sLn9J3hAhWO3KQKHX-SAfoQjRx6BAgBEAU&url=https%3A%2F%2Fwww.muenchen.de%2Fsehenswuerdigkeiten%2Forte%2F120242.html&psig=AOvVaw1UDGBmraEnDcog34QVLQ80&ust=1553624562893756"
         },
         {
             routeName   : 'History and Beergarden at Lake',
             duration    : "4 hrs",
             price       : "60 Euro",
-            rating      : "4.0"
+            rating      : "4.0",
+            image       : "https://maas-scotland.com/wp-content/uploads/2017/12/neuschwanstein-fussen-bavaria-1500-cs1.jpg",
         }
         ,
         {
             routeName   : 'Car driving and Bavarian Lakes',
             duration    : "3.5 hrs",
             price       : "30 Euro",
-            rating      : "4.7"
+            rating      : "4.7",
+            image       : "https://www.google.com/url?sa=i&source=images&cd=&cad=rja&uact=8&ved=2ahUKEwj_8Jzq9Z3hAhXJxqQKHUu_BvIQjRx6BAgBEAU&url=http%3A%2F%2Fwww.clickalps.com%2FPhoto-u177-w74022.html&psig=AOvVaw1R71qzMpgY37EM9opcjfMD&ust=1553624826536819"
         }
     ];
 }
