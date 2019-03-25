@@ -5,7 +5,8 @@ class HomeScreen extends Component {
   render() {
     return(
       // <WelcomeComponent goToTourOptions={() => this.props.navigation.navigate('TourOptions')}/> 
-      <WelcomeComponent goToPreferenceSelection={() => this.props.navigation.navigate('PreferenceSelection')}/> 
+      // <WelcomeComponent goToPreferenceSelection={() => this.props.navigation.navigate('PreferenceSelection')}/> 
+      <WelcomeComponent goToPreferenceSelection={() => this.props.navigation.navigate('IntroScreen')}/> 
 
     )
   }

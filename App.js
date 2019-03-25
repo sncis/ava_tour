@@ -14,6 +14,7 @@ import PaymentScreen from './screens/PaymentScreen';
 import ConfirmationScreen from './screens/ConfirmationScreen';
 import TourPreviewScreen from './screens/TourPreviewScreen';
 import TourDetailsOverviewScreen from './screens/TourDetailsOverviewScreen';
+import IntroScreens from "./screens/IntroScreens";
 
 const AppNavigator = createStackNavigator({
   Home: HomeScreen,
@@ -26,7 +27,8 @@ const AppNavigator = createStackNavigator({
   Payment: PaymentScreen,
   Conirfmation: ConfirmationScreen,
   TourPreview: TourPreviewScreen,
-  TourDetailsOverview: TourDetailsOverviewScreen
+  TourDetailsOverview: TourDetailsOverviewScreen,
+  IntroScreen: IntroScreens,
 
 })
 

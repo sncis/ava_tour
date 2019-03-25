@@ -1,5 +1,5 @@
 import React, { Component} from 'react';
-import {View, StyleSheet, Dimensions } from 'react-native';
+import {View, StyleSheet, Dimensions, ScrollView } from 'react-native';
 import { connect } from 'react-redux';
 import PickUpForm from '../components/PickUpForm';
 import AvatarComponent from '../components/AvatarComponent';
@@ -15,13 +15,13 @@ export class PickUpFormScreenElement extends Component {
   
   render(){
     return(
-      <View style={styles.mainContainer}>
+      <ScrollView style={styles.mainContainer}>
         <AvatarComponent text={`Great! You selected the ${this.props.tour} Tour.`}/>
         <PickUpForm navigation= {() => this.props.navigation.navigate('TourOptions')}/>
         <View style={styles.button}>
          <MainButton pressFunction={() => this.props.navigation.navigate('TourOptions')} text="Next" />
         </View>
-      </View>
+      </ScrollView>
 
     )
   }
@@ -38,8 +38,8 @@ const styles = StyleSheet.create({
     position: 'relative',
   },
   button: {
-    position: 'absolute',
-    bottom: -100, 
-    alignSelf: 'center'
+    marginTop: '5%',
+    alignSelf: 'center',
+    marginBottom: 100,
   }
 })

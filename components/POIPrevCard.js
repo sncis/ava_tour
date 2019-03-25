@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import { View, Text, ImageBackground, StyleSheet, Dimensions, TouchableOpacity } from 'react-native';
 import { LinearGradient } from 'expo';
 import { connect } from 'react-redux';
+import { getPIODetails } from '../store/actions/actions';
 
 
 

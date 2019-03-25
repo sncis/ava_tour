@@ -9,7 +9,9 @@ export default class TourDetailsOverviewScreen extends Component {
       <View >
       <ScrollView >
         <TourPreviewHeader navigateToLocationDetails={()=> this.props.navigation.navigate('LocationDetails')}/>
-        <MainButton pressFunction={() => this.props.navigation.navigate('Payment')} text="BOOK THIS TOUR" />
+        <View style={{paddingBottom: 100}}>
+          <MainButton pressFunction={() => this.props.navigation.navigate('Payment')} text="BOOK THIS TOUR" />
+        </View>
       </ScrollView>
       </View>
      

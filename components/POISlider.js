@@ -21,7 +21,7 @@ export class POIs extends Component {
         <POIPrevCard
           poiName={poi.location}
           touchNavigation={() => this.props.navigationtoLocDetails()}
-          // image={poi.image}
+          image={poi.poiImageUrl}
           key={poi.location}
         />
       )
