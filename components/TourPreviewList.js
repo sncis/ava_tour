@@ -3,7 +3,6 @@ import TourPreviewListItem from './TourPreviewListItem';
 import { connect } from 'react-redux';
 import {Text, View, ScrollView, StyleSheet} from 'react-native';
 import { getRecommendedTours } from '../store/actions/actions';
-import dbInstance  from '../database/Database';
 
 
 

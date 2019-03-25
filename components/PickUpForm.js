@@ -93,6 +93,9 @@ export class PickUpFormElement extends Component {
             // onSubmitEditing={(location) =>this.onLocationSet(location)}
           />
           <Text style={styles.text}>For how any people?</Text>
+          {/* <View style={styles.peopleSelection}>
+
+          </View> */}
           <Input
             placeholder='1 - 4'
             // errorMessage='sorry no name'
