@@ -1,4 +1,4 @@
-# ava_tour
+# avaTour
 
 a React Native App (in development) for customised Sightseeing Tours around Munich. 
 
